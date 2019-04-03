@@ -10,15 +10,15 @@ Feature 2:  Detection of objects around the smartcar
 Date: 20 April, 2019
 
 
-This is the iniation to the self-parking car. Were the smartcar can detect empty space and detect objects around it and
-one the side. We will be working with 4 sensors.
+This is the iniation to the self-parking car. Where the smartcar can detect empty space and detect objects around it and
+on the side. We will be working with 4 sensors.
 
 
 
-Feature 3: image proccessing of possible parking spot
+Feature 3: Image proccessing of possible parking spot
 Date: 5 May, 2019
 
-We will use image processing because with the sensors we are working with now we can't detect objects length or size.
+We will use image processing for it's capability to detect object's length and size which is not possible with the provided sensors.
 https://en.wikipedia.org/wiki/Digital_image_processing
 
 
