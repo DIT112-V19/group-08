@@ -1,0 +1,31 @@
+Feature 1: Basic communication with the car
+Date: 5 April, 2019
+
+This feature is only basic communication with the car through coding on the computer. It can be anything from making the lights
+blink or making the car move.
+
+
+
+Feature 2:  Detection of objects around the smartcar
+Date: 20 April, 2019
+
+
+This is the iniation to the self-parking car. Were the smartcar can detect empty space and detect objects around it and
+one the side. We will be working with 4 sensors.
+
+
+
+Feature 3: image proccessing of possible parking spot
+Date: 5 May, 2019
+
+We will use image processing because with the sensors we are working with now we can't detect objects length or size.
+https://en.wikipedia.org/wiki/Digital_image_processing
+
+
+
+Feature 4: Autonomously park the car
+Date: May 15, 2019
+
+With the help of feature 1,2 and 3 we will make a program that connects with all the smartcars functions into a button that
+will autonomously park the car
+ 
