@@ -1,0 +1,13 @@
+Feature #1 user stories:
+  - As an autonomous car owner, I want to be able to connect with my car through a bluetooth device so that I could control it
+  
+Feature #2 user stories:
+  - As a driver, I want my car to have sensors so it was able to detect objects around it
+  - As an user, I want my autonomous car to detect objects in front of it and stop as a consequence so that it wouldn't crash into anything
+  
+Feature #3 user stories:
+  - As an user, I want my autonomous car to have sensors so that it was able to find an empty place 
+
+Feature #4 user stories:
+  - As a driver, I want my car to have autonomic functionality so that it was able to perform some tasks without manual input
+  - As an user, I want my autonomous car to park itself so I wouldn't have to trouble myself with it
