@@ -11,3 +11,19 @@ Components we are going to use:
   - Speed encoders
   - Bluetooth platform
   - Ultrasonic sensors
+  
+Developers
+- Adelric Wong
+- Shab Pompeiano
+- Stanko Jankovic
+- Arvin Esfahani Zadeh Sakhi Langeroudi
+- Martynas Lekeckas
+- Kevin Abdul
+
+Product owners
+- Ilja Pavlov
+- M Nazeeh Alhosary
+
+Customer
+- Dimitrios Platis
+
