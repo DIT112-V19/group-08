@@ -27,8 +27,9 @@ const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
-const int turningInterval = 875;
-const int adjustInterval = 1250;
+const int rightTurnInterval = 900;
+const int leftTurnInterval = 1750;
+const int backwardsInterval = 2250;
 unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
 unsigned long timestampMillis = 0;   // will store time after starting to perform time based actions
   int side_obstacle_counter = 0;
@@ -48,15 +49,10 @@ void loop() {
 void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
-   Serial.println(current_distance);
-   Serial.println(side_distance);
-   Serial.println(odometer.getDistance());
-   Serial.println(side_obstacle_counter);
-   Serial.println("KKKKKKKKKKKKKKK");
     
    if ((current_distance > 20 || current_distance == 0) && (side_distance > 20 || side_distance == 0)) {
     if (side_obstacle_counter == 1 && side_distance > 20){
-        turnRight();
+        parallelParking();
      }
      car.setSpeed(30);
      car.setAngle(0);
@@ -71,14 +67,18 @@ void check(){
    }
 }
 
-void turnRight(){
+void parallelParking(){
   timestampMillis = millis();
-  while (millis() - timestampMillis < turningInterval){
+  while (millis() - timestampMillis < rightTurnInterval){
      car.setSpeed(30);
-     car.setAngle(90);
+     car.setAngle(60);
   }
-  while (millis() - timestampMillis < adjustInterval){
+  while (millis() - timestampMillis < leftTurnInterval){
      car.setSpeed(30);
+     car.setAngle(-65);
+  }
+  while (millis() - timestampMillis < backwardsInterval){
+     car.setSpeed(-30);
      car.setAngle(0);
   }
   while(1) {
