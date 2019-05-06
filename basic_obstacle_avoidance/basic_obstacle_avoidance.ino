@@ -54,9 +54,6 @@ void led(){
   while (millis() - timestampMillis < blinkInterval){
       digitalWrite(8, LOW);
     }
-//  while (millis() - timestampMillis < blinkInterval){
-//      digitalWrite(8, LOW);
-//    }
   }
 
 void check(){
