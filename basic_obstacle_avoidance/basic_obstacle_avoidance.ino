@@ -27,13 +27,17 @@ const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
-const int rightTurnInterval = 900;
-const int leftTurnInterval = 1750;
-const int backwardsInterval = 2250;
-unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
-unsigned long timestampMillis = 0;   // will store time after starting to perform time based actions
-  int side_obstacle_counter = 0;
-
+//unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
+//unsigned long timestampMillis = 0;   // will store time after starting to perform time based actions
+int side_obstacle_counter = 0;
+boolean objectNextTo = false;
+const int rightTurnInterval = 26;
+const int leftTurnInterval = 96;
+const int backwardsInterval = 120;
+unsigned int currentdistance= 0;
+int traveled_distance = 0;
+int failproof_distance = 100;
+   
 
 void setup() {
   Serial.begin(9600);
@@ -44,41 +48,49 @@ void setup() {
 
 void loop() {
   check();
-}
+  Serial.println(side_obstacle_counter);
+  Serial.println(odometer.getDistance());
+ }
 
 void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
-    
    if ((current_distance > 20 || current_distance == 0) && (side_distance > 20 || side_distance == 0)) {
-    if (side_obstacle_counter == 1 && side_distance > 20){
-        parallelParking();
+    if (side_obstacle_counter == 2 && side_distance > 20){
+       parallelParking();
      }
      car.setSpeed(30);
      car.setAngle(0);
+     if(odometer.getDistance() - traveled_distance > failproof_distance){
+        objectNextTo = false;   
+     }
    }
    else if (current_distance > 0 && current_distance < 20) {
      car.setSpeed(0);
    }
    
    else if (side_distance > 0 && side_distance < 20){
-     side_obstacle_counter = 1;
+     if(objectNextTo == false){
+        side_obstacle_counter += 1;
+        traveled_distance = odometer.getDistance();
+     }
+     objectNextTo = true;
      car.setSpeed(30);
    }
 }
 
 void parallelParking(){
-  timestampMillis = millis();
-  while (millis() - timestampMillis < rightTurnInterval){
-     car.setSpeed(30);
+  int  distanceStamp = odometer.getDistance();
+  while (odometer.getDistance() - distanceStamp < rightTurnInterval){
+     car.setSpeed(-30);
      car.setAngle(60);
-  }
-  while (millis() - timestampMillis < leftTurnInterval){
-     car.setSpeed(30);
+  } 
+  while (odometer.getDistance() - distanceStamp < leftTurnInterval){
+     car.setSpeed(-30);
      car.setAngle(-65);
   }
-  while (millis() - timestampMillis < backwardsInterval){
-     car.setSpeed(-30);
+  while (odometer.getDistance() - distanceStamp < backwardsInterval){
+     car.setSpeed(30);
      car.setAngle(0);
   }
   while(1) {
