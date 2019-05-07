@@ -27,6 +27,7 @@ const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
+const int blinkInterval = 600;
 const int rightTurnInterval = 900;
 const int leftTurnInterval = 1750;
 const int backwardsInterval = 2250;
@@ -37,6 +38,7 @@ unsigned long timestampMillis = 0;   // will store time after starting to perfor
 
 void setup() {
   Serial.begin(9600);
+  pinMode(8, OUTPUT);
   odometer.attach(odometerPin, [](){
     odometer.update();
   });
@@ -44,7 +46,15 @@ void setup() {
 
 void loop() {
   check();
+  led(); 
 }
+
+void led(){
+  timestampMillis = millis();
+  while (millis() - timestampMillis < blinkInterval){
+      digitalWrite(8, LOW);
+    }
+  }
 
 void check(){
    int current_distance = front_sensor.getDistance();
