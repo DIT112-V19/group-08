@@ -5,7 +5,7 @@ int leftMotorSpeedPin = 9;
 int rightMotorForwardPin = 12;
 int rightMotorBackwardPin = 13;
 int rightMotorSpeedPin = 11;
-const int ledPin = 14;// the number of the LED pin
+const int ledPin = 3;// the number of the LED pin
 int ledState = LOW;   // ledState used to set the LED
 // Generally, you should use "unsigned long" for variables that hold time
 // The value will quickly become too large for an int to store
