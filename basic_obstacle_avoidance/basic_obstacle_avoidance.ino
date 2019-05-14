@@ -1,10 +1,13 @@
 #include <Smartcar.h>
+#include <SoftwareSerial.h>
+
 int leftMotorForwardPin = 8;
 int leftMotorBackwardPin = 10;
 int leftMotorSpeedPin = 9;
 int rightMotorForwardPin = 12;
 int rightMotorBackwardPin = 13;
 int rightMotorSpeedPin = 11;
+
 
 BrushedMotor leftMotor(leftMotorForwardPin, leftMotorBackwardPin, leftMotorSpeedPin);
 BrushedMotor rightMotor(rightMotorForwardPin, rightMotorBackwardPin, rightMotorSpeedPin);
@@ -35,16 +38,25 @@ const int backwardsInterval = 120;
 unsigned int currentdistance= 0;
 int traveled_distance = 0;
 int failproof_distance = 100;
-   
+
+SoftwareSerial EEBlue(19, 20);
 
 void setup() {
+  pinMode(40, OUTPUT);
+  digitalWrite(40,HIGH);
   Serial.begin(9600);
+  EEBlue.begin(38400);
+  Serial.println("Connect");
   odometer.attach(odometerPin, [](){
     odometer.update();
   });
 }
 
 void loop() {
+  if(EEBlue.available())
+  Serial1.write(EEBlue.read());
+  if(Serial1.available())
+  Serial2.write(Serial.read());
   check();
   Serial.println(side_obstacle_counter);
   Serial.println(odometer.getDistance());
@@ -60,11 +72,11 @@ void check(){
      car.setSpeed(30);
      car.setAngle(0);
    }
-   
+
    else if (current_distance > 0 && current_distance < 20) {
      car.setSpeed(0);
    }
-   
+
    else if (side_distance > 0 && side_distance < 20){
      side_obstacle_counter = 1;
      car.setSpeed(30);
@@ -78,7 +90,7 @@ void parallelParking(){
      parking_distance = side_sensor.getDistance();
      car.setSpeed(30);
      car.setAngle(55);
-  } 
+  }
   int  second_Distance_Stamp = odometer.getDistance();
   double  turning_Distance_Stamp = (second_Distance_Stamp - distance_Stamp) * 0.7;
   while (odometer.getDistance() < second_Distance_Stamp + turning_Distance_Stamp){
