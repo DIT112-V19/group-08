@@ -37,6 +37,7 @@ const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
+
 int side_obstacle_counter = 0;
 const int blinkInterval = 600;
 boolean objectNextTo = false;
@@ -47,14 +48,17 @@ unsigned int currentdistance= 0;
 int traveled_distance = 0;
 int failproof_distance = 100;
 
+
 SoftwareSerial EEBlue(19, 20);
 
 void setup() {
   pinMode(40, OUTPUT);
   digitalWrite(40,HIGH);
   Serial.begin(9600);
+
   EEBlue.begin(38400);
   Serial.println("Connect");
+
   pinMode(ledPin, OUTPUT);
   odometer.attach(odometerPin, [](){
     odometer.update();
@@ -67,6 +71,7 @@ void loop() {
   if(Serial1.available())
   Serial2.write(Serial.read());
   check();
+
   Serial.println(side_obstacle_counter);
   Serial.println(odometer.getDistance());
   led();
@@ -88,7 +93,26 @@ void led(){
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin, ledState);
   }
+
 }
+
+void led(){
+   unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+    }
+  }
 
 void check(){
    int current_distance = front_sensor.getDistance();
