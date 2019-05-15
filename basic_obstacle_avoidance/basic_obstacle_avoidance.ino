@@ -1,4 +1,6 @@
 #include <Smartcar.h>
+#include <SoftwareSerial.h>
+
 int leftMotorForwardPin = 8;
 int leftMotorBackwardPin = 10;
 int leftMotorSpeedPin = 9;
@@ -12,6 +14,7 @@ int ledState = LOW;   // ledState used to set the LED
 unsigned long previousMillis = 0;        // will store last time LED was updated
 // constants won't change:
 const long interval = 1000;           // interval at which to blink (milliseconds)
+
 
 BrushedMotor leftMotor(leftMotorForwardPin, leftMotorBackwardPin, leftMotorSpeedPin);
 BrushedMotor rightMotor(rightMotorForwardPin, rightMotorBackwardPin, rightMotorSpeedPin);
@@ -34,17 +37,28 @@ const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
-const int blinkInterval = 600;
-const int rightTurnInterval = 900;
-const int leftTurnInterval = 1750;
-const int backwardsInterval = 2250;
-unsigned long currentMillis = 0;    // stores the value of millis() in each iteration of loop()
-unsigned long timestampMillis = 0;   // will store time after starting to perform time based actions
-  int side_obstacle_counter = 0;
 
+int side_obstacle_counter = 0;
+const int blinkInterval = 600;
+boolean objectNextTo = false;
+const int rightTurnInterval = 70;
+const int leftTurnInterval = 96;
+const int backwardsInterval = 120;
+unsigned int currentdistance= 0;
+int traveled_distance = 0;
+int failproof_distance = 100;
+
+
+SoftwareSerial EEBlue(19, 20);
 
 void setup() {
+  pinMode(40, OUTPUT);
+  digitalWrite(40,HIGH);
   Serial.begin(9600);
+
+  EEBlue.begin(38400);
+  Serial.println("Connect");
+
   pinMode(ledPin, OUTPUT);
   odometer.attach(odometerPin, [](){
     odometer.update();
@@ -52,8 +66,34 @@ void setup() {
 }
 
 void loop() {
+  if(EEBlue.available())
+  Serial1.write(EEBlue.read());
+  if(Serial1.available())
+  Serial2.write(Serial.read());
   check();
-  led(); 
+
+  Serial.println(side_obstacle_counter);
+  Serial.println(odometer.getDistance());
+  led();
+}
+
+void led(){
+   unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+  }
+
 }
 
 void led(){
@@ -77,18 +117,18 @@ void led(){
 void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
-    
    if ((current_distance > 20 || current_distance == 0) && (side_distance > 20 || side_distance == 0)) {
     if (side_obstacle_counter == 1 && side_distance > 20){
-        parallelParking();
+       parallelParking();
      }
      car.setSpeed(30);
      car.setAngle(0);
    }
+
    else if (current_distance > 0 && current_distance < 20) {
      car.setSpeed(0);
    }
-   
+
    else if (side_distance > 0 && side_distance < 20){
      side_obstacle_counter = 1;
      car.setSpeed(30);
@@ -96,18 +136,18 @@ void check(){
 }
 
 void parallelParking(){
-  timestampMillis = millis();
-  while (millis() - timestampMillis < rightTurnInterval){
+  int distance_Stamp = odometer.getDistance();
+  int parking_distance = side_sensor.getDistance();
+  while (parking_distance > 6 && parking_distance != 0){
+     parking_distance = side_sensor.getDistance();
      car.setSpeed(30);
-     car.setAngle(60);
+     car.setAngle(55);
   }
-  while (millis() - timestampMillis < leftTurnInterval){
+  int  second_Distance_Stamp = odometer.getDistance();
+  double  turning_Distance_Stamp = (second_Distance_Stamp - distance_Stamp) * 0.7;
+  while (odometer.getDistance() < second_Distance_Stamp + turning_Distance_Stamp){
      car.setSpeed(30);
-     car.setAngle(-65);
-  }
-  while (millis() - timestampMillis < backwardsInterval){
-     car.setSpeed(-30);
-     car.setAngle(0);
+     car.setAngle(-55);
   }
   while(1) {
     car.setSpeed(0);
