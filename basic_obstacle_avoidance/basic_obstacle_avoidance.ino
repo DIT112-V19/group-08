@@ -31,6 +31,7 @@ const int odometerPin = 2; //D2 pin
 SimpleCar car(control);
 
 int side_obstacle_counter = 0;
+const int blinkInterval = 600;
 boolean objectNextTo = false;
 const int rightTurnInterval = 70;
 const int leftTurnInterval = 96;
