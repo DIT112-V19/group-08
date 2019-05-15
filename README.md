@@ -2,9 +2,13 @@
 
 ## Autonomous parking with Smartcar
 
+<img align="right" src="https://im.ezgif.com/tmp/ezgif-1-87897a53c99a.gif">
+
 ### What is our idea?
 
-Our main idea for this project is a smartcar that is capable of autonomous parking in an empty spot when given a command to do so. We are directing our focus on **automatic parking functionality**, but will also see if there is enough time for additional functionalities to be implemented, namely - making manual controls for the car, autonomous parking specialization (for different cases). 
+Our main idea for this project is a smartcar that is capable of autonomous parking in an empty spot when given a command to do so. We are directing our focus on **automatic parking functionality**, but will also see if there is enough time for additional functionalities to be implemented, namely - making manual controls for the car, autonomous parking specialization (for different cases).
+
+
 
 ### How are we going to do this?
 For the time being, smartcar will move simply forward until given a command to park. In order to relay the command to park, along with a few other commands (**turn On/Off**, **start moving**, **stop** etc. and **manual controls** if there is time), we are going to create **UI** for the car - a simple **mobile app** which uses bluetooth connection to communicate with the car. After receiving a command, smartcar will change its movement accordingly to correspond to it. Smartcar at the same time will include obstacle avoidance capabilities to **avoid collision** while on autonomous movement (i.e. detecting obstacles in its way as well as on the car's sides in order to park without hitting anything).
