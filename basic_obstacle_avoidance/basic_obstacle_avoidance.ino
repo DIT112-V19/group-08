@@ -68,14 +68,15 @@ void setup() {
 
 void loop() {
 
-  if (Serial.available() > 0)
-  {string = "";}
+  if (Serial.available() > 0) {
+    string = "";
+  }
 
   while(Serial.available() > 0) {
     command = ((byte)Serial.read());
 
     if(command == ':') {
-      break;
+       while(1){}
     }else {
       string += command;
     }
@@ -87,7 +88,7 @@ void loop() {
 
     if(string == "B"){
       backward();
-      Serial.println(string)
+      Serial.println(string);
     }
 
     if(string == "R") {
@@ -138,11 +139,13 @@ void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
    int rear_distance = rear_sensor.getDistance();
-   if ((current_distance > 20 || current_distance == 0) && (side_distance > 20 || side_distance == 0)) {
+   if ((current_distance > 20 || current_distance == 0) &&
+                                   (side_distance > 20 || side_distance == 0)) {
     if (side_obstacle_counter == 1 && side_distance > 20){
        parallelParking();
      }
      car.setSpeed(30);
+     car.setAngle(0);
    }
 
    else if (current_distance > 0 && current_distance < 20) {
