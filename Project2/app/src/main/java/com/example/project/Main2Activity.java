@@ -9,5 +9,12 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        //Button button = (Button) findViewById(R.id.left);
+        //button.setOnClickListener(new View.OnClickListener() {
+           // public void onClick(View v) {
+
+           // }
+        //});
     }
 }

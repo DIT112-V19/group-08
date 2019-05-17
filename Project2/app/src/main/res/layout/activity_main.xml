@@ -79,7 +79,8 @@
         android:id="@+id/bluetooth"
         android:layout_width="139dp"
         android:layout_height="75dp"
-        android:text="ON/OFF Bluetooth"
+        android:onClick="Bluetooth"
+        android:text="Bluetooth"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>
