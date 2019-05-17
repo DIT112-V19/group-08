@@ -1,14 +1,15 @@
 #include <Smartcar.h>
 #include <SoftwareSerial.h>
 char command;
-String string;
+char input;
 
-int leftMotorForwardPin = 8;
-int leftMotorBackwardPin = 10;
-int leftMotorSpeedPin = 9;
-int rightMotorForwardPin = 12;
-int rightMotorBackwardPin = 13;
-int rightMotorSpeedPin = 11;
+// Pin ids
+const int leftMotorForwardPin = 8;
+const int leftMotorBackwardPin = 10;
+const int leftMotorSpeedPin = 9;
+const int rightMotorForwardPin = 12;
+const int rightMotorBackwardPin = 13;
+const int rightMotorSpeedPin = 11;
 const int ledPin = 3;// the number of the LED pin
 int ledState = LOW;   // ledState used to set the LED
 // Generally, you should use "unsigned long" for variables that hold time
@@ -21,6 +22,7 @@ const long interval = 1000;           // interval at which to blink (millisecond
 BrushedMotor leftMotor(leftMotorForwardPin, leftMotorBackwardPin, leftMotorSpeedPin);
 BrushedMotor rightMotor(rightMotorForwardPin, rightMotorBackwardPin, rightMotorSpeedPin);
 DifferentialControl control(leftMotor, rightMotor);
+
 
 //HC-SR04 side, front and back ultrasound sensors respectively
 const int SIDE_TRIGGER_PIN = 6; //D6 pin
@@ -38,19 +40,23 @@ const int REAR_ECHO_PIN = 24; //D24 pin
 const unsigned int REAR_MAX_DISTANCE = 80;
 SR04 rear_sensor(REAR_TRIGGER_PIN, REAR_ECHO_PIN, REAR_MAX_DISTANCE);
 
-
+// Odometer
 DirectionlessOdometer odometer(80);
 const int odometerPin = 2; //D2 pin
 
 SimpleCar car(control);
 
-int side_obstacle_counter = 0;
-const int blinkInterval = 600;
-boolean objectNextTo = false;
-int traveled_distance = 0;
-int failproof_distance = 100;
 
-SoftwareSerial EEBlue(19, 20);
+// variables
+const int blinkInterval = 600;
+const int failproof_distance = 100;
+
+boolean objectNextTo = false;
+int side_obstacle_counter = 0;
+int traveled_distance = 0;
+
+
+SoftwareSerial EEBlue(18, 19);
 
 void setup() {
   pinMode(40, OUTPUT);
@@ -68,8 +74,26 @@ void setup() {
 
 void loop() {
 
+  if(EEBlue.available())
+  Serial1.write(EEBlue.read());
+  if(Serial1.available())
+  Serial2.write(Serial.read());
+  check();
+  Serial.println(side_obstacle_counter);
+  Serial.println(odometer.getDistance());
+  Serial.println(front_sensor.getDistance());
+  Serial.println(side_sensor.getDistance());
+  Serial.println(rear_sensor.getDistance());
+  Serial.println();
+
+  remote_Command();
+  led();
+}
+
+
+void remote_Command(){
   if (Serial.available() > 0) {
-    string = "";
+    input = ' ';
   }
 
   while(Serial.available() > 0) {
@@ -78,43 +102,24 @@ void loop() {
     if(command == ':') {
        while(1){}
     }else {
-      string += command;
+      input = command;
     }
 
-    if(string == "F") {
-      forward();
-      Serial.println(string);
-    }
-
-    if(string == "B"){
-      backward();
-      Serial.println(string);
-    }
-
-    if(string == "R") {
-      right();
-      Serial.println(string);
-    }
-
-    if(string == "L") {
-      left();
-      Serial.println(string);
+    switch (input) {
+      case 'F':
+        forward();
+        break;
+      case 'B':
+        backward();
+        break;
+      case 'R':
+        right();
+        break;
+      case 'L':
+        left();
+        break;
     }
   }
-
-  if(EEBlue.available())
-  Serial1.write(EEBlue.read());
-  if(Serial1.available())
-  Serial2.write(Serial.read());
-  // check();
-  // Serial.println(side_obstacle_counter);
-  // Serial.println(odometer.getDistance());
-  Serial.println(front_sensor.getDistance());
-  Serial.println(side_sensor.getDistance());
-  Serial.println(rear_sensor.getDistance());
-  Serial.println();
-
-  led();
 }
 
 void led(){
@@ -182,18 +187,24 @@ void parallelParking(){
 
 void forward() {
   car.setSpeed(30);
+  car.setAngle(0);
+  Serial.println(input);
 }
 
 void backward() {
   car.setSpeed(-30);
+  car.setAngle(0);
+  Serial.println(input);
 }
 
 void right() {
   car.setSpeed(30);
   car.setAngle(50);
+  Serial.println(input);
 }
 
 void left() {
   car.setSpeed(30);
   car.setAngle(-50);
+  Serial.println(input);
 }
