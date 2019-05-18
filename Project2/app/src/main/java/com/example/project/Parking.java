@@ -23,7 +23,9 @@ import java.util.UUID;
 public class Parking extends AppCompatActivity {
 
     // Button btnOn, btnOff, btnDis;
-    Button test;
+    Button connect;
+    Button park;
+
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -44,34 +46,38 @@ public class Parking extends AppCompatActivity {
         setContentView(R.layout.activity_parking);
 
         //call the widgets
-        test = (Button)findViewById(R.id.test);
+        connect = (Button)findViewById(R.id.connect);
 
-        new ConnectBT().execute(); //Call the class to connect
+        park = (Button) findViewById(R.id.park);
+
+         //Call the class to connect
 
         //commands to be sent to bluetooth
-        test.setOnClickListener(new View.OnClickListener()
+        connect.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                turnOnLed();      //method to turn on
+                new ConnectBT().execute();
             }
         });
-    }
 
-    private void turnOnLed()
-    {
-        if (btSocket!=null)
-        {
-            try
-            {
-                btSocket.getOutputStream().write("P".toString().getBytes());
+        park.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btSocket!=null)
+                {
+                    try
+                    {
+                        btSocket.getOutputStream().write("P".toString().getBytes());
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                }
             }
-            catch (IOException e)
-            {
-                msg("Error");
-            }
-        }
+        });
     }
 
     // fast way to call Toast

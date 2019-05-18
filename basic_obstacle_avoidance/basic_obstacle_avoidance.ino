@@ -113,6 +113,9 @@ void remote_Command(String command){
       case 'L':
         left();
         break;
+      case 'P':
+        //FUNCTION TO PARK THE CAR
+        break;
       case '0':
         Stop();
         break;
