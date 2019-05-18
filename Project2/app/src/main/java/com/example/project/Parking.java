@@ -65,7 +65,7 @@ public class Parking extends AppCompatActivity {
         {
             try
             {
-                btSocket.getOutputStream().write("B".toString().getBytes());
+                btSocket.getOutputStream().write("P".toString().getBytes());
             }
             catch (IOException e)
             {

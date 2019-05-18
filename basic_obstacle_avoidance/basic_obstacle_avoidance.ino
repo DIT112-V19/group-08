@@ -1,8 +1,8 @@
 #include <Smartcar.h>
 
-char command;
+
 char input;
-String cmd="";
+String command="";
 
 // Pin ids
 const int leftMotorForwardPin = 8;
@@ -71,19 +71,19 @@ void setup() {
 }
 
 void loop() {
-  cmd="";
+  command="";
   if (Serial1.available()>0){
         char info = Serial1.read();
-        cmd.concat(info);
+        command.concat(info);
     } 
 
     
-   if (cmd.length()==2 && !cmd.equals("")){
+   if (!command.equals("") && command.length()==2){
           Serial1.flush();
-          Serial.println(cmd);
+          Serial.println(command);
     }
     
-  //check();
+  checkObstacles();
   //Serial.println(side_obstacle_counter);
   //Serial.println(odometer.getDistance());
   //Serial.println(front_sensor.getDistance());
@@ -91,16 +91,16 @@ void loop() {
   //Serial.println(rear_sensor.getDistance());
   //Serial.println();
 
-  remote_Command(cmd);
+  remote_Command(command);
   led();
 }
 
 
-void remote_Command(String cmd){
-  if(cmd!=""){
-    input = cmd[0];
+void remote_Command(String command){
+  if(command!=""){
+    input = command[0];
   Serial.println(input);
-    switch (cmd[0]) {
+    switch (command[0]) {
       case 'F':
         forward();
         break;
@@ -137,7 +137,17 @@ void led(){
     digitalWrite(ledPin, ledState);
   }
 }
-
+void checkObstacles(){
+   int current_distance = front_sensor.getDistance();
+   int rear_distance = rear_sensor.getDistance();
+   if (current_distance > 0 && current_distance < 20) {
+     car.setSpeed(0);
+   }
+     if (rear_distance > 0 && rear_distance < 20) {
+     car.setSpeed(0);
+     }
+   
+}
 void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
