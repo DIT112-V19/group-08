@@ -1,7 +1,8 @@
 #include <Smartcar.h>
-#include <SoftwareSerial.h>
+
 char command;
 char input;
+String cmd="";
 
 // Pin ids
 const int leftMotorForwardPin = 8;
@@ -55,14 +56,11 @@ boolean objectNextTo = false;
 int side_obstacle_counter = 0;
 int traveled_distance = 0;
 
-
-SoftwareSerial EEBlue(18, 19);
-
 void setup() {
   pinMode(40, OUTPUT);
   digitalWrite(40,HIGH);
   Serial.begin(9600);
-  EEBlue.begin(38400);
+  Serial1.begin(9600);
 
   Serial.println("Connect");
   pinMode(ledPin, OUTPUT);
@@ -73,39 +71,36 @@ void setup() {
 }
 
 void loop() {
+  cmd="";
+  if (Serial1.available()>0){
+        char info = Serial1.read();
+        cmd.concat(info);
+    } 
 
-  if(EEBlue.available())
-  Serial1.write(EEBlue.read());
-  if(Serial1.available())
-  Serial2.write(Serial.read());
-  check();
-  Serial.println(side_obstacle_counter);
-  Serial.println(odometer.getDistance());
-  Serial.println(front_sensor.getDistance());
-  Serial.println(side_sensor.getDistance());
-  Serial.println(rear_sensor.getDistance());
-  Serial.println();
+    
+   if (cmd.length()==2 && !cmd.equals("")){
+          Serial1.flush();
+          Serial.println(cmd);
+    }
+    
+  //check();
+  //Serial.println(side_obstacle_counter);
+  //Serial.println(odometer.getDistance());
+  //Serial.println(front_sensor.getDistance());
+  //Serial.println(side_sensor.getDistance());
+  //Serial.println(rear_sensor.getDistance());
+  //Serial.println();
 
-  remote_Command();
+  remote_Command(cmd);
   led();
 }
 
 
-void remote_Command(){
-  if (Serial.available() > 0) {
-    input = ' ';
-  }
-
-  while(Serial.available() > 0) {
-    command = ((byte)Serial.read());
-
-    if(command == ':') {
-       while(1){}
-    }else {
-      input = command;
-    }
-
-    switch (input) {
+void remote_Command(String cmd){
+  if(cmd!=""){
+    input = cmd[0];
+  Serial.println(input);
+    switch (cmd[0]) {
       case 'F':
         forward();
         break;
@@ -117,6 +112,9 @@ void remote_Command(){
         break;
       case 'L':
         left();
+        break;
+      case '0':
+        Stop();
         break;
     }
   }
@@ -188,23 +186,23 @@ void parallelParking(){
 void forward() {
   car.setSpeed(30);
   car.setAngle(0);
-  Serial.println(input);
 }
 
 void backward() {
   car.setSpeed(-30);
   car.setAngle(0);
-  Serial.println(input);
 }
 
 void right() {
-  car.setSpeed(30);
+  //car.setSpeed(30);
   car.setAngle(50);
-  Serial.println(input);
 }
 
 void left() {
-  car.setSpeed(30);
+  //car.setSpeed(30);
   car.setAngle(-50);
-  Serial.println(input);
+}
+
+void Stop() {
+  car.setSpeed(0);
 }
