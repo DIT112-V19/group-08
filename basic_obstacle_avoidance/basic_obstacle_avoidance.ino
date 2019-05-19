@@ -235,6 +235,7 @@ void resetAngle() {
 
 void cruiseControl() {
   car.setSpeed(30); 
+  car.setAngle(0);
   input = command[0];
   
   while(input!='0'){
@@ -243,19 +244,20 @@ void cruiseControl() {
     int side_distance = side_sensor.getDistance();
     int rear_distance = rear_sensor.getDistance();
 
-    if(current_distance>0 && current_distance<40){
-      car.setSpeed(10);
-      Serial.println("Obstacle in front");
-      if(side_distance>0 && side_distance<40){
-        Serial.println("Obstacle at side");
-        car.setAngle(-50);
+    if(current_distance>0 && current_distance<50){
+      car.setSpeed(30);
+      
+      if(side_distance>0 && side_distance<50){
+        car.overrideMotorSpeed(-40,30);
       }else{
-        car.setAngle(50);
+        car.overrideMotorSpeed(30,-40);
       }
+      
     }else{
       car.setSpeed(30);
       car.setAngle(0);
     }
+
     
     
     input = command[0];
