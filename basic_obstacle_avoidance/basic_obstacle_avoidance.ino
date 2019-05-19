@@ -71,17 +71,7 @@ void setup() {
 }
 
 void loop() {
-  command="";
-  if (Serial1.available()>0){
-        char info = Serial1.read();
-        command.concat(info);
-    } 
-
-    
-   if (!command.equals("") && command.length()==2){
-          Serial1.flush();
-          Serial.println(command);
-    }
+  checkBluetoothData();
     
   checkObstacles();
   //Serial.println(side_obstacle_counter);
@@ -95,6 +85,19 @@ void loop() {
   led();
 }
 
+void checkBluetoothData() {
+  command = "";
+  
+  if (Serial1.available()>0){
+    char info = Serial1.read();
+    command.concat(info);
+  }
+  
+  if (!command.equals("") && command.length()==2){
+    Serial1.flush();
+    Serial.println(command);
+  }
+}
 
 void remote_Command(String command){
   if(command!=""){
@@ -115,6 +118,9 @@ void remote_Command(String command){
         break;
       case 'P':
         //FUNCTION TO PARK THE CAR
+        break;
+      case 'C':
+        cruiseControl();
         break;
       case '0':
         Stop();
@@ -223,7 +229,35 @@ void Stop() {
   car.setSpeed(0);
 }
 
-void resetAngle(){
+void resetAngle() {
   car.setAngle(0);
 }
+
+void cruiseControl() {
+  car.setSpeed(30); 
+  input = command[0];
+  
+  while(input!='0'){
+    checkBluetoothData();
+    int current_distance = front_sensor.getDistance();
+    int side_distance = side_sensor.getDistance();
+    int rear_distance = rear_sensor.getDistance();
+
+    if(current_distance>0 && current_distance<40){
+      car.setSpeed(10);
+      Serial.println("Obstacle in front");
+      if(side_distance>0 && side_distance<40){
+        Serial.println("Obstacle at side");
+        car.setAngle(-50);
+      }else{
+        car.setAngle(50);
+      }
+    }else{
+      car.setSpeed(30);
+      car.setAngle(0);
+    }
+    
+    
+    input = command[0];
+  } 
 }
