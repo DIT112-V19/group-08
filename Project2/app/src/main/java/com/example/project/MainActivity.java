@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Parking(View view){
-        Intent startNewActivity = new Intent(this, Main4Activity.class);
+        Intent startNewActivity = new Intent(this, Parking.class);
         startActivity(startNewActivity);
     }
 
