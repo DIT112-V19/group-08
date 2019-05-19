@@ -119,6 +119,9 @@ void remote_Command(String command){
       case '0':
         Stop();
         break;
+      case '1':
+        resetAngle();
+        break;
     }
   }
 }
@@ -218,4 +221,9 @@ void left() {
 
 void Stop() {
   car.setSpeed(0);
+}
+
+void resetAngle(){
+  car.setAngle(0);
+}
 }
