@@ -155,45 +155,77 @@ void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
    int rear_distance = rear_sensor.getDistance();
+
    if ((current_distance > 20 || current_distance == 0) &&
                                    (side_distance > 20 || side_distance == 0)) {
-    if (side_obstacle_counter == 1 && side_distance > 20){
-       parallelParking();
-     }
-     car.setSpeed(30);
-     car.setAngle(0);
+      if (side_obstacle_counter == 2 && side_distance > 20){
+         parallelParking();
+      }
+      car.setSpeed(30);
+      car.setAngle(0);
+      if(odometer.getDistance() - traveled_distance > failproof_distance){
+        objectNextTo = false;   
+      }
    }
 
    else if (current_distance > 0 && current_distance < 20) {
-     car.setSpeed(0);
+      car.setSpeed(0);
    }
 
    else if (side_distance > 0 && side_distance < 20){
-     side_obstacle_counter = 1;
-     car.setSpeed(30);
+      if(objectNextTo == false){
+         side_obstacle_counter += 1;
+         traveled_distance = odometer.getDistance();   
+      }
+      objectNextTo = true;
+      car.setSpeed(30);
    }
 }
 
 void parallelParking(){
   int distance_Stamp = odometer.getDistance();
   int parking_distance = side_sensor.getDistance();
-  while (parking_distance > 6 && parking_distance != 0){
-     parking_distance = side_sensor.getDistance();
-     car.setSpeed(30);
+  while (rear_sensor.getDistance() > 6 /*&& parking_distance != 0*/){
+//     parking_distance = side_sensor.getDistance();
+     car.setSpeed(-30);
      car.setAngle(55);
   }
 
   int  second_Distance_Stamp = odometer.getDistance();
   double  turning_Distance_Stamp = (second_Distance_Stamp - distance_Stamp) * 0.7;
     while (odometer.getDistance() < second_Distance_Stamp + turning_Distance_Stamp){
-     car.setSpeed(30);
+     car.setSpeed(-30);
      car.setAngle(-55);
+  }
+
+  while (front_sensor.getDistance() > 20){
+     car.setSpeed(30);
+     car.setAngle(0);
   }
 
   while(1) {
     car.setSpeed(0);
     car.setAngle(0);
   }
+
+
+//  while (odometer.getDistance() - distanceStamp < rightTurnInterval){
+//     car.setSpeed(-30);
+//     car.setAngle(60);
+//  } 
+//  while (odometer.getDistance() - distanceStamp < leftTurnInterval){
+//     car.setSpeed(-30);
+//     car.setAngle(-65);
+//  }
+//  while (odometer.getDistance() - distanceStamp < backwardsInterval){
+//     car.setSpeed(30);
+//     car.setAngle(0);
+//  }
+//  while(1) {
+//    car.setSpeed(0);
+//    car.setAngle(0);
+//  }
+
 }
 
 void forward() {
