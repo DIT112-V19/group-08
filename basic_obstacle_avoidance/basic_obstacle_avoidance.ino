@@ -1,7 +1,8 @@
 #include <Smartcar.h>
-#include <SoftwareSerial.h>
-char command;
+
+
 char input;
+String command="";
 
 // Pin ids
 const int leftMotorForwardPin = 8;
@@ -55,14 +56,11 @@ boolean objectNextTo = false;
 int side_obstacle_counter = 0;
 int traveled_distance = 0;
 
-
-SoftwareSerial EEBlue(18, 19);
-
 void setup() {
   pinMode(40, OUTPUT);
   digitalWrite(40,HIGH);
   Serial.begin(9600);
-  EEBlue.begin(38400);
+  Serial1.begin(9600);
 
   Serial.println("Connect");
   pinMode(ledPin, OUTPUT);
@@ -73,39 +71,36 @@ void setup() {
 }
 
 void loop() {
+  command="";
+  if (Serial1.available()>0){
+        char info = Serial1.read();
+        command.concat(info);
+    } 
 
-  if(EEBlue.available())
-  Serial1.write(EEBlue.read());
-  if(Serial1.available())
-  Serial2.write(Serial.read());
-  check();
-  Serial.println(side_obstacle_counter);
-  Serial.println(odometer.getDistance());
-  Serial.println(front_sensor.getDistance());
-  Serial.println(side_sensor.getDistance());
-  Serial.println(rear_sensor.getDistance());
-  Serial.println();
+    
+   if (!command.equals("") && command.length()==2){
+          Serial1.flush();
+          Serial.println(command);
+    }
+    
+  checkObstacles();
+  //Serial.println(side_obstacle_counter);
+  //Serial.println(odometer.getDistance());
+  //Serial.println(front_sensor.getDistance());
+  //Serial.println(side_sensor.getDistance());
+  //Serial.println(rear_sensor.getDistance());
+  //Serial.println();
 
-  remote_Command();
+  remote_Command(command);
   led();
 }
 
 
-void remote_Command(){
-  if (Serial.available() > 0) {
-    input = ' ';
-  }
-
-  while(Serial.available() > 0) {
-    command = ((byte)Serial.read());
-
-    if(command == ':') {
-       while(1){}
-    }else {
-      input = command;
-    }
-
-    switch (input) {
+void remote_Command(String command){
+  if(command!=""){
+    input = command[0];
+  Serial.println(input);
+    switch (command[0]) {
       case 'F':
         forward();
         break;
@@ -117,6 +112,12 @@ void remote_Command(){
         break;
       case 'L':
         left();
+        break;
+      case 'P':
+        //FUNCTION TO PARK THE CAR
+        break;
+      case '0':
+        Stop();
         break;
     }
   }
@@ -139,7 +140,17 @@ void led(){
     digitalWrite(ledPin, ledState);
   }
 }
-
+void checkObstacles(){
+   int current_distance = front_sensor.getDistance();
+   int rear_distance = rear_sensor.getDistance();
+   if (current_distance > 0 && current_distance < 20) {
+     car.setSpeed(0);
+   }
+     if (rear_distance > 0 && rear_distance < 20) {
+     car.setSpeed(0);
+     }
+   
+}
 void check(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
@@ -188,23 +199,23 @@ void parallelParking(){
 void forward() {
   car.setSpeed(30);
   car.setAngle(0);
-  Serial.println(input);
 }
 
 void backward() {
   car.setSpeed(-30);
   car.setAngle(0);
-  Serial.println(input);
 }
 
 void right() {
-  car.setSpeed(30);
+  //car.setSpeed(30);
   car.setAngle(50);
-  Serial.println(input);
 }
 
 void left() {
-  car.setSpeed(30);
+  //car.setSpeed(30);
   car.setAngle(-50);
-  Serial.println(input);
+}
+
+void Stop() {
+  car.setSpeed(0);
 }

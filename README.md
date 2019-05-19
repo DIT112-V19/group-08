@@ -2,7 +2,7 @@
 
 ## Autonomous parking with Smartcar
 
-<img align="right" src="https://im.ezgif.com/tmp/ezgif-1-87897a53c99a.gif">
+<img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
 
 ### What is our idea?
 

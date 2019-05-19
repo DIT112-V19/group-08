@@ -14,81 +14,14 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG="MainActivity";
-    BluetoothAdapter mBluetoothAdapter;
 
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)){
-
-                final int state=intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,mBluetoothAdapter.ERROR);
-
-                switch (state){
-                    case BluetoothAdapter.STATE_OFF:
-                        Log.d(TAG, "on Receive: STATE OFF");
-                        break;
-                    case BluetoothAdapter.STATE_TURNING_OFF:
-                        Log.d(TAG, "mBroadcastReceiver1: STATE TURNING OFF");
-                        break;
-                    case BluetoothAdapter.STATE_ON:
-                        Log.d(TAG, "mBroadcastReceiver1: STATE ON");
-                        break;
-                    case BluetoothAdapter.STATE_TURNING_ON:
-                        Log.d(TAG, "mBroadcastReceiver1: STATE TURNING ON");
-                        break;
-
-                }
-
-        }
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG, "onDestroy: called.");
-        super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver1);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button bluetooth=(Button) findViewById(R.id.bluetooth);
-
-        mBluetoothAdapter= BluetoothAdapter.getDefaultAdapter();
-
-        bluetooth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: enabling/disabling bluetooth.");
-                enableDisableBT();
-            }
-        });
     }
-    public void enableDisableBT(){
-        if(mBluetoothAdapter==null)
-            Log.d(TAG, "enableDisableBT: Does not have BT capabilities");
 
-        if(!mBluetoothAdapter.isEnabled()){
-            Log.d(TAG, "enableDisableBT: enabling BT.");
-            Intent enableBTIntent=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enableBTIntent);
-
-            IntentFilter BTIntent=new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-            registerReceiver(mBroadcastReceiver1,BTIntent);
-        }
-        if(mBluetoothAdapter.isEnabled()){
-            Log.d(TAG, "enableDisableBT: disabling BT.");
-            mBluetoothAdapter.disable();
-
-            IntentFilter BTIntent=new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-            registerReceiver(mBroadcastReceiver1,BTIntent);
-        }
-    }
     public void CruiseControl(View view){
         Intent startNewActivity = new Intent(this, Main3Activity.class);
         startActivity(startNewActivity);
@@ -100,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Parking(View view){
-        Intent startNewActivity = new Intent(this, Main4Activity.class);
+        Intent startNewActivity = new Intent(this, Parking.class);
+        startActivity(startNewActivity);
+    }
+
+    public void Bluetooth(View view){
+        Intent startNewActivity = new Intent(this, Bluetooth.class);
         startActivity(startNewActivity);
     }
 
