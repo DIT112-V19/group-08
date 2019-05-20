@@ -118,6 +118,7 @@ void remote_Command(String command){
         break;
       case 'P':
         //FUNCTION TO PARK THE CAR
+        parallelParking();
         break;
       case 'C':
         cruiseControl();
