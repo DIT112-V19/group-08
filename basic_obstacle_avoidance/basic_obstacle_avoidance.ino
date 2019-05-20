@@ -11,7 +11,7 @@ const int leftMotorSpeedPin = 9;
 const int rightMotorForwardPin = 12;
 const int rightMotorBackwardPin = 13;
 const int rightMotorSpeedPin = 11;
-const int ledPin = 3;// the number of the LED pin
+const int ledPin = A3;// the number of the LED pin
 int ledState = LOW;   // ledState used to set the LED
 // Generally, you should use "unsigned long" for variables that hold time
 // The value will quickly become too large for an int to store
@@ -72,8 +72,7 @@ void setup() {
 
 void loop() {
   checkBluetoothData();
-    
-  checkObstacles();
+
   //Serial.println(side_obstacle_counter);
   //Serial.println(odometer.getDistance());
   //Serial.println(front_sensor.getDistance());
@@ -82,17 +81,18 @@ void loop() {
   //Serial.println();
 
   remote_Command(command);
+  // checkObstacles();
   led();
 }
 
 void checkBluetoothData() {
   command = "";
-  
+
   if (Serial1.available()>0){
     char info = Serial1.read();
     command.concat(info);
   }
-  
+
   if (!command.equals("") && command.length()==2){
     Serial1.flush();
     Serial.println(command);
@@ -117,7 +117,7 @@ void remote_Command(String command){
         left();
         break;
       case 'P':
-        //FUNCTION TO PARK THE CAR
+        parkingSpotting();
         break;
       case 'C':
         cruiseControl();
@@ -131,6 +131,7 @@ void remote_Command(String command){
     }
   }
 }
+
 
 void led(){
    unsigned long currentMillis = millis();
@@ -149,18 +150,24 @@ void led(){
     digitalWrite(ledPin, ledState);
   }
 }
+
+// collision avoidance code while driving the car manually
 void checkObstacles(){
    int current_distance = front_sensor.getDistance();
    int rear_distance = rear_sensor.getDistance();
    if (current_distance > 0 && current_distance < 20) {
      car.setSpeed(0);
    }
-     if (rear_distance > 0 && rear_distance < 20) {
+   if (rear_distance > 0 && rear_distance < 20) {
      car.setSpeed(0);
-     }
-   
+   }
 }
-void check(){
+
+
+// Smartcar goes forward checking obstacles to the right side of itself
+// and measuring distances between passed objects. If there is enough
+// space - the car activates parallel parking functionality
+void parkingSpotting(){
    int current_distance = front_sensor.getDistance();
    int side_distance = side_sensor.getDistance();
    int rear_distance = rear_sensor.getDistance();
@@ -173,7 +180,7 @@ void check(){
       car.setSpeed(30);
       car.setAngle(0);
       if(odometer.getDistance() - traveled_distance > failproof_distance){
-        objectNextTo = false;   
+        objectNextTo = false;
       }
    }
 
@@ -184,13 +191,17 @@ void check(){
    else if (side_distance > 0 && side_distance < 20){
       if(objectNextTo == false){
          side_obstacle_counter += 1;
-         traveled_distance = odometer.getDistance();   
+         traveled_distance = odometer.getDistance();
       }
       objectNextTo = true;
       car.setSpeed(30);
    }
 }
 
+
+// Method for the car to park in parallel to the right.
+// The car moves automatically as long as there is space to move and
+// straightens itself by the end.
 void parallelParking(){
   int distance_Stamp = odometer.getDistance();
   int parking_distance = side_sensor.getDistance();
@@ -221,7 +232,7 @@ void parallelParking(){
 //  while (odometer.getDistance() - distanceStamp < rightTurnInterval){
 //     car.setSpeed(-30);
 //     car.setAngle(60);
-//  } 
+//  }
 //  while (odometer.getDistance() - distanceStamp < leftTurnInterval){
 //     car.setSpeed(-30);
 //     car.setAngle(-65);
@@ -240,11 +251,13 @@ void parallelParking(){
 void forward() {
   car.setSpeed(30);
   car.setAngle(0);
+  checkObstacles();
 }
 
 void backward() {
   car.setSpeed(-30);
   car.setAngle(0);
+  checkObstacles();
 }
 
 void right() {
@@ -266,10 +279,10 @@ void resetAngle() {
 }
 
 void cruiseControl() {
-  car.setSpeed(30); 
+  car.setSpeed(30);
   car.setAngle(0);
   input = command[0];
-  
+
   while(input!='0'){
     checkBluetoothData();
     int current_distance = front_sensor.getDistance();
@@ -278,20 +291,20 @@ void cruiseControl() {
 
     if(current_distance>0 && current_distance<50){
       car.setSpeed(30);
-      
+
       if(side_distance>0 && side_distance<50){
         car.overrideMotorSpeed(-40,30);
       }else{
         car.overrideMotorSpeed(30,-40);
       }
-      
+
     }else{
       car.setSpeed(30);
       car.setAngle(0);
     }
 
-    
-    
+
+
     input = command[0];
-  } 
+  }
 }
