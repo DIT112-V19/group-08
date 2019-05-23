@@ -78,7 +78,7 @@ void setup() {
 void loop() {
   gyro.update();
   checkBluetoothData();
-  checkObstaclesFront(command);
+  checkObstaclesFront();
 //  checkObstaclesRear();
   remote_Command(command);
   led();
@@ -151,15 +151,18 @@ void led(){
 }
 
 // collision avoidance code while driving the car manually
-boolean checkObstaclesFront(String command){
+boolean checkObstaclesFront(){
    boolean obstacle_in_front = false; 
    int current_distance = front_sensor.getDistance();
    if (current_distance > 0 && current_distance < 20) {
-     car.setSpeed(0);
-     car.setAngle(0);
+      car.setAngle(0);
+      for (int i = 30; i > 0; i--){
+         car.setSpeed(i);
+         delay(20);
+     }
      obstacle_in_front = true;
    }
-   return obstacle_in_front;
+return obstacle_in_front;
 }
 
 //boolean checkObstaclesRear(){
@@ -246,7 +249,6 @@ void parallelParking(){
      car.setAngle(0);
   }
 
-  
   while (car_direction < lowS_bound || car_direction > upS_bound){
      car.setSpeed(-24);
      car.setAngle(-60);
