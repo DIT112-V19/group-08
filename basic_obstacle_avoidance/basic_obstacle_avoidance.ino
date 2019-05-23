@@ -158,7 +158,7 @@ void led(){
 boolean checkObstaclesFront(String command){
    boolean obstacle_in_front = false; 
    int current_distance = front_sensor.getDistance();
-   if (current_distance > 0 && current_distance < 20 && command == "F") {
+   if (current_distance > 0 && current_distance < 20) {
      car.setSpeed(0);
      car.setAngle(0);
      obstacle_in_front = true;
@@ -217,27 +217,44 @@ void parkingSpotting(){
 // The car moves automatically as long as there is space to move and
 // straightens itself by the end.
 void parallelParking(){
-  int distance_Stamp = odometer.getDistance();
-  int parking_distance = side_sensor.getDistance();
-  while (rear_sensor.getDistance() > 6 /*&& parking_distance != 0*/){
-//     parking_distance = side_sensor.getDistance();
-     car.setSpeed(-30);
-     car.setAngle(55);
+  gyro.update();
+  int car_direction = gyro.getHeading();
+  int initial_direction = car_direction;
+  int turn_degree;
+  
+  if (car_direction >= 45)
+     turn_degree = car_direction - 45;
+  else {
+     turn_degree = 360 - (45 - car_direction);
   }
 
-  int  second_Distance_Stamp = odometer.getDistance();
-  double  turning_Distance_Stamp = (second_Distance_Stamp - distance_Stamp) * 0.7;
-    while (odometer.getDistance() < second_Distance_Stamp + turning_Distance_Stamp){
-     car.setSpeed(-30);
-     car.setAngle(-55);
+  int direction_failproof = 5
+  int low_bound = turn_degree - direction_failproof;
+  int up_bound = turn_degree + direction_failproof;
+  int lowS_bound = initial_direction + direction_failproof;
+  int upS_bound = lowSbound + direction_failproof;  
+
+
+  while (car_direction < low_bound || car_direction > up_bound){
+     car.setSpeed(-25);
+     car.setAngle(40);
+     gyro.update();
+     car_direction = gyro.getHeading();
   }
-  while (front_sensor.getDistance() > 20){
-     car.setSpeed(30);
+
+  int rear_distance = rear_sensor.getDistance();
+  while (rear_distance > 20 /*|| rear_distance == 0*/){
+     rear_distance = rear_sensor.getDistance();
+     car.setSpeed(-20);
      car.setAngle(0);
   }
-  while (1) {
-    car.setSpeed(0);
-    car.setAngle(0);
+
+  
+  while (car_direction < lowS_bound || car_direction > upS_bound){
+     car.setSpeed(-24);
+     car.setAngle(-60);
+     gyro.update();
+     car_direction = gyro.getHeading();
   }
 }
 
