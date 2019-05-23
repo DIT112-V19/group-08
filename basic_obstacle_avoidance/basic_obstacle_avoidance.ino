@@ -46,6 +46,9 @@ SR04 rear_sensor(REAR_TRIGGER_PIN, REAR_ECHO_PIN, REAR_MAX_DISTANCE);
 DirectionlessOdometer odometer(80);
 const int odometerPin = 2; //D2 pin
 
+const int GYROSCOPE_OFFSET = 37;
+GY50 gyro(GYROSCOPE_OFFSET);
+
 SimpleCar car(control);
 
 
@@ -73,17 +76,10 @@ void setup() {
 }
 
 void loop() {
+  gyro.update();
   checkBluetoothData();
-
-  //Serial.println(side_obstacle_counter);
-  //Serial.println(odometer.getDistance());
-  //Serial.println(front_sensor.getDistance());
-  //Serial.println(side_sensor.getDistance());
-  //Serial.println(rear_sensor.getDistance());
-  //Serial.println();
-
   checkObstaclesFront(command);
-  checkObstaclesRear();
+//  checkObstaclesRear();
   remote_Command(command);
   led();
 }
@@ -166,50 +162,51 @@ boolean checkObstaclesFront(String command){
    return obstacle_in_front;
 }
 
-boolean checkObstaclesRear(){
-   boolean obstacle_in_rear = false; 
-   int rear_distance = rear_sensor.getDistance();
-   if (rear_distance > 0 && rear_distance < 20) {
-     car.setSpeed(0);
-     car.setAngle(0);
-     obstacle_in_rear = true;
-   }
-   return obstacle_in_rear;
-}
+//boolean checkObstaclesRear(){
+//   boolean obstacle_in_rear = false; 
+//   int rear_distance = rear_sensor.getDistance();
+//   if (rear_distance > 0 && rear_distance < 20) {
+//     car.setSpeed(0);
+//     car.setAngle(0);
+//     obstacle_in_rear = true;
+//   }
+//   return obstacle_in_rear;
+//}
+
 
 // Smartcar goes forward checking obstacles to the right side of itself
 // and measuring distances between passed objects. If there is enough
 // space - the car activates parallel parking functionality
 void parkingSpotting(){
-   int current_distance = front_sensor.getDistance();
-   int side_distance = side_sensor.getDistance();
-   int rear_distance = rear_sensor.getDistance();
+   while (side_obstacle_counter < 2){
+     int current_distance = front_sensor.getDistance();
+     int side_distance = side_sensor.getDistance();
 
-   if ((current_distance > 20 || current_distance == 0) &&
-                                   (side_distance > 20 || side_distance == 0)) {
-      if (side_obstacle_counter == 2 && side_distance > 20){
-         parallelParking();
-      }
-      car.setSpeed(30);
-      car.setAngle(0);
-      if (odometer.getDistance() - traveled_distance > failproof_distance){
-        objectNextTo = false;
-      }
+     if ((current_distance > 20 || current_distance == 0) &&
+                                     (side_distance > 20 || side_distance == 0)) {
+        car.setSpeed(30);
+        car.setAngle(0);
+        if (odometer.getDistance() - traveled_distance > failproof_distance){
+          objectNextTo = false;
+        }
+     }
+  
+     else if (current_distance > 0 && current_distance < 20) {
+        car.setSpeed(0);
+     }
+  
+     else if (side_distance > 0 && side_distance < 20){
+        if (objectNextTo == false){
+           side_obstacle_counter += 1;
+           traveled_distance = odometer.getDistance();
+        }
+        objectNextTo = true;
+        car.setSpeed(30);
+        car.setAngle(0);
+     }
    }
-
-   else if (current_distance > 0 && current_distance < 20) {
-      car.setSpeed(0);
-   }
-
-   else if (side_distance > 0 && side_distance < 20){
-      if (objectNextTo == false){
-         side_obstacle_counter += 1;
-         traveled_distance = odometer.getDistance();
-      }
-      objectNextTo = true;
-      car.setSpeed(30);
-      car.setAngle(0);
-   }
+   side_obstacle_counter = 0;
+   parallelParking();
 }
 
 
@@ -228,11 +225,11 @@ void parallelParking(){
      turn_degree = 360 - (45 - car_direction);
   }
 
-  int direction_failproof = 5
-  int low_bound = turn_degree - direction_failproof;
-  int up_bound = turn_degree + direction_failproof;
-  int lowS_bound = initial_direction + direction_failproof;
-  int upS_bound = lowSbound + direction_failproof;  
+//  int direction_failproof = 5;
+  int low_bound = turn_degree - 5;
+  int up_bound = turn_degree + 5;
+  int lowS_bound = initial_direction - 5;
+  int upS_bound = initial_direction + 5;  
 
 
   while (car_direction < low_bound || car_direction > up_bound){
@@ -243,7 +240,7 @@ void parallelParking(){
   }
 
   int rear_distance = rear_sensor.getDistance();
-  while (rear_distance > 20 /*|| rear_distance == 0*/){
+  while (rear_distance > 15 /*|| rear_distance == 0*/){
      rear_distance = rear_sensor.getDistance();
      car.setSpeed(-20);
      car.setAngle(0);
@@ -270,7 +267,7 @@ void forward() {
 void backward() {
 //  if (checkObstaclesRear()) {}
 //  else{
-    positive_speed = false;
+//    positive_speed = false;
     car.setSpeed(-30);
     car.setAngle(0);
 //  }
