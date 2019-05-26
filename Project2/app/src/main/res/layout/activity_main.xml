@@ -29,14 +29,16 @@
         android:layout_height="41dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/rounded_button"
         android:onClick="ManualControl"
         android:text="Manual Control"
         app:layout_constraintBottom_toTopOf="@+id/ParkingBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CruiseControlBtn" />
 
@@ -52,6 +54,7 @@
         android:layout_marginBottom="37dp"
         android:onClick="CruiseControl"
         android:text="Cruise Control"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,19 +64,17 @@
         android:id="@+id/ParkingBtn"
         android:layout_width="361dp"
         android:layout_height="41dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_button"
         android:onClick="Parking"
         android:text="Parking"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ManualControlBtn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bluetooth"
@@ -84,6 +85,7 @@
         android:layout_marginTop="16dp"
         android:onClick="Bluetooth"
         android:text="Bluetooth"
+        android:background="@drawable/rounded_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,6 +97,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="Connect to car"
+        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

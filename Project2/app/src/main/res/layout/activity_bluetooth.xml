@@ -25,12 +25,14 @@
 
     <Button
         android:id="@+id/bt_onoff"
+        style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="40dp"
         android:text="On/Off"
+        android:background="@drawable/rounded_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,6 +44,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:text="Discoverability"
+        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +58,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:text="Search Devices"
+        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
