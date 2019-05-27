@@ -1,8 +1,8 @@
 #include <Smartcar.h>
 
-
-char input;
-String command="";
+//*********************************************************************************
+// Smartcar's components
+//*********************************************************************************
 
 // Pin ids
 const int leftMotorForwardPin = 8;
@@ -13,18 +13,9 @@ const int rightMotorBackwardPin = 13;
 const int rightMotorSpeedPin = 11;
 const int ledPin = A3;// the number of the LED pin
 
-int ledState = LOW;   // ledState used to set the LED
-// Generally, you should use "unsigned long" for variables that hold time
-// The value will quickly become too large for an int to store
-unsigned long previousMillis = 0;        // will store last time LED was updated
-// constants won't change:
-const long interval = 1000;           // interval at which to blink (milliseconds)
-
-
 BrushedMotor leftMotor(leftMotorForwardPin, leftMotorBackwardPin, leftMotorSpeedPin);
 BrushedMotor rightMotor(rightMotorForwardPin, rightMotorBackwardPin, rightMotorSpeedPin);
 DifferentialControl control(leftMotor, rightMotor);
-
 
 //HC-SR04 side, front and back ultrasound sensors respectively
 const int SIDE_TRIGGER_PIN = 6; //D6 pin
@@ -46,21 +37,33 @@ SR04 rear_sensor(REAR_TRIGGER_PIN, REAR_ECHO_PIN, REAR_MAX_DISTANCE);
 DirectionlessOdometer odometer(80);
 const int odometerPin = 2; //D2 pin
 
+// Gyroscope
 const int GYROSCOPE_OFFSET = 37;
 GY50 gyro(GYROSCOPE_OFFSET);
 
 SimpleCar car(control);
 
 
-// variables
+//*********************************************************************************
+// Variables for the algorithm
+//*********************************************************************************
+unsigned long previousMillis = 0;        // will store last time LED was updated
+const long interval = 1000;           // interval at which to blink (milliseconds)
 const int blinkInterval = 600;
 const int failproof_distance = 100;
+int side_obstacle_counter = 0;
+int traveled_distance = 0;
+int ledState = LOW;   // ledState used to set the LED
 
 boolean positive_speed = true;
 boolean objectNextTo = false;
-int side_obstacle_counter = 0;
-int traveled_distance = 0;
+char input;
+String command="";
 
+
+//*********************************************************************************
+// Setup for the car Arduino code and main loop
+//*********************************************************************************
 void setup() {
   pinMode(40, OUTPUT);
   digitalWrite(40,HIGH);
@@ -84,22 +87,24 @@ void loop() {
   led();
 }
 
+
+//*********************************************************************************
+// Manual control commands
+//*********************************************************************************
 void checkBluetoothData() {
   command = "";
-
-  if (Serial1.available()>0){
+  if (Serial1.available() > 0){
     char info = Serial1.read();
     command.concat(info);
   }
-
-  if (!command.equals("") && command.length()==2){
+  if (!command.equals("") && command.length() == 2){
     Serial1.flush();
     Serial.println(command);
   }
 }
 
 void remote_Command(String command){
-  if (command!=""){
+  if (command != ""){
     input = command[0];
   Serial.println(input);
     switch (command[0]) {
@@ -132,6 +137,9 @@ void remote_Command(String command){
 }
 
 
+//*********************************************************************************
+// LED light algorithm
+//*********************************************************************************
 void led(){
    unsigned long currentMillis = millis();
 
@@ -150,7 +158,10 @@ void led(){
   }
 }
 
-// collision avoidance code while driving the car manually
+
+//*********************************************************************************
+// Collision avoidance code while driving the car manually
+//*********************************************************************************
 boolean checkObstaclesFront(){
    boolean obstacle_in_front = false; 
    int current_distance = front_sensor.getDistance();
@@ -177,9 +188,11 @@ return obstacle_in_front;
 //}
 
 
+//*********************************************************************************
 // Smartcar goes forward checking obstacles to the right side of itself
 // and measuring distances between passed objects. If there is enough
 // space - the car activates parallel parking functionality
+//*********************************************************************************
 void parkingSpotting(){
    while (side_obstacle_counter < 2){
      int current_distance = front_sensor.getDistance();
@@ -213,9 +226,11 @@ void parkingSpotting(){
 }
 
 
+//*********************************************************************************
 // Method for the car to park in parallel to the right.
 // The car moves automatically as long as there is space to move and
 // straightens itself by the end.
+//*********************************************************************************
 void parallelParking(){
   gyro.update();
   int car_direction = gyro.getHeading();
@@ -228,7 +243,6 @@ void parallelParking(){
      turn_degree = 360 - (45 - car_direction);
   }
 
-//  int direction_failproof = 5;
   int low_bound = turn_degree - 5;
   int up_bound = turn_degree + 5;
   int lowS_bound = initial_direction - 5;
@@ -243,7 +257,7 @@ void parallelParking(){
   }
 
   int rear_distance = rear_sensor.getDistance();
-  while (rear_distance > 15 /*|| rear_distance == 0*/){
+  while (rear_distance > 15){
      rear_distance = rear_sensor.getDistance();
      car.setSpeed(-20);
      car.setAngle(0);
@@ -258,21 +272,17 @@ void parallelParking(){
 }
 
 
+//*********************************************************************************
+// Manual control commands
+//*********************************************************************************
 void forward() {
-//  if (checkObstaclesFront()){}
-//  else {
     positive_speed = true;
     car.setSpeed(30);
     car.setAngle(0);
-//  }
 }
 void backward() {
-//  if (checkObstaclesRear()) {}
-//  else{
-//    positive_speed = false;
     car.setSpeed(-30);
     car.setAngle(0);
-//  }
 }
 void right() {
   if (positive_speed == true) 
@@ -295,6 +305,10 @@ void resetAngle() {
   car.setAngle(0);
 }
 
+
+//*********************************************************************************
+// Autonomous obstacle avoiding cruise riding
+//*********************************************************************************
 void cruiseControl() {
   car.setSpeed(30);
   car.setAngle(0);
@@ -319,8 +333,6 @@ void cruiseControl() {
       car.setSpeed(30);
       car.setAngle(0);
     }
-
-
 
     input = command[0];
   }
