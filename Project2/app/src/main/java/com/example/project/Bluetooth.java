@@ -124,13 +124,12 @@ public class Bluetooth extends AppCompatActivity {
 
                         //If the device is already paired then unpair, otherwise pair with the selected device
                         if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-                            unpairDevice(device);
-                            Toast.makeText(view.getContext(), "Unpaired",
-                                    Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(view.getContext(), "Pairing...",
-                                    Toast.LENGTH_LONG).show();
 
+                            unpairDevice(device);
+                            msg("Unpaired");
+                        } else {
+
+                            msg("Pairing...");
                             pairDevice(device);
                         }
                     }
@@ -149,11 +148,9 @@ public class Bluetooth extends AppCompatActivity {
                 final int prevState	= intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE, BluetoothDevice.ERROR);
 
                 if (state == BluetoothDevice.BOND_BONDED && prevState == BluetoothDevice.BOND_BONDING) {
-                    Toast.makeText(context, "Paired",
-                            Toast.LENGTH_LONG).show();
+                    msg("Paired");
                 } else if (state == BluetoothDevice.BOND_NONE && prevState == BluetoothDevice.BOND_BONDED){
-                    Toast.makeText(context, "Unpaired",
-                            Toast.LENGTH_LONG).show();
+                    msg("Unpaired");
                 }
 
                 mDeviceListAdapter.notifyDataSetChanged();
@@ -327,5 +324,11 @@ public class Bluetooth extends AppCompatActivity {
         }else{
             Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
         }
+    }
+
+    //Method to write Toasts faster
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 }
