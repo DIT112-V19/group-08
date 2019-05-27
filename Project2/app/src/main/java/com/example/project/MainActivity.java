@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.UUID;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //Send the string C to the car (C stands for Cruise control)
                     btSocket.getOutputStream().write("C".getBytes());
-                } catch (IOException e) {
+                } catch (Exception e) {
                     msg("Error");
                 }
             }

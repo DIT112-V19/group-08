@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import android.Manifest;
