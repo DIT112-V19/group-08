@@ -25,10 +25,10 @@ import android.widget.Toast;
 public class Bluetooth extends AppCompatActivity {
     private static final String TAG = "Bluetooth";
 
-    BluetoothAdapter mBluetoothAdapter;
+    private BluetoothAdapter mBluetoothAdapter;
     public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
-    public DeviceListAdapter mDeviceListAdapter;
-    ListView lvNewDevices;
+    private DeviceListAdapter mDeviceListAdapter;
+    private ListView lvNewDevices;
 
 
     //BroadcastReceiver that shows when the bluetooth is toggled
