@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
         {

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+//This class defines an Adapter for the ListView used to list the discovered bluetooth devices by the phone
+//the purpose of this is to store objects of type BluetoothDevice
 
 public class DeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
 
