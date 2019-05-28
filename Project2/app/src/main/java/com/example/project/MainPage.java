@@ -26,7 +26,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_page);
 
         //This Button is used to connect to the paired car with the bluetooth
         Button connect = findViewById(R.id.connect);
