@@ -22,12 +22,12 @@ public class Parking extends AppCompatActivity {
         park.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.btSocket!=null)
+                if (MainPage.btSocket!=null)
                 {
                     try
                     {
                         //Sending the string P to the car (P stands for Parallel Parking
-                        MainActivity.btSocket.getOutputStream().write("P".getBytes());
+                        MainPage.btSocket.getOutputStream().write("P".getBytes());
                     }
                     catch (Exception e)
                     {
