@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+public class MainPage extends AppCompatActivity {
 
     private ProgressDialog progress;
     public static BluetoothSocket btSocket = null;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //An attempt to connect to the car is executed
-                new MainActivity.ConnectBT().execute();
+                new MainPage.ConnectBT().execute();
             }
         });
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ManualControl(View view){
-        Intent startNewActivity = new Intent(this, Main2Activity.class);
+        Intent startNewActivity = new Intent(this, ManualControls.class);
         startActivity(startNewActivity);
     }
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             //show a progress dialog
-            progress = ProgressDialog.show(MainActivity.this, "Connecting...", "Please wait!!!");
+            progress = ProgressDialog.show(MainPage.this, "Connecting...", "Please wait!!!");
         }
 
         @Override
