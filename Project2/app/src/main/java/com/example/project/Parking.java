@@ -5,16 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.app.ProgressDialog;
-import java.io.IOException;
 
 
 public class Parking extends AppCompatActivity {
-
-    Button park;
-
-    private ProgressDialog progress;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,15 +16,8 @@ public class Parking extends AppCompatActivity {
 
         setContentView(R.layout.activity_parking);
 
-        //call the widgets
-
-        park = (Button) findViewById(R.id.park);
-
-
-         //Call the class to connect
-
-        //commands to be sent to bluetooth
-
+        //This button sends the command of parking to the connected car
+        Button park = findViewById(R.id.park);
 
         park.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +26,10 @@ public class Parking extends AppCompatActivity {
                 {
                     try
                     {
+                        //Sending the string P to the car (P stands for Parallel Parking
                         MainActivity.btSocket.getOutputStream().write("P".getBytes());
                     }
-                    catch (IOException e)
+                    catch (Exception e)
                     {
                         msg("Error");
                     }
@@ -51,7 +38,7 @@ public class Parking extends AppCompatActivity {
         });
     }
 
-    // fast way to call Toast
+    //Method to write Toasts faster
     private void msg(String s)
     {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
