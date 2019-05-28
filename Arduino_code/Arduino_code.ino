@@ -48,17 +48,17 @@ SimpleCar car(control);
 // Variables for the algorithm
 //*********************************************************************************
 unsigned long previousMillis = 0;        // will store last time LED was updated
-const long interval = 1000;           // interval at which to blink (milliseconds)
+const long interval = 1000;              // interval at which to blink (milliseconds)
 const int blinkInterval = 600;
-const int failproof_distance = 100;
+const int failproof_distance = 100;      // distance for which algorithm ignores side sensor returned values
 int side_obstacle_counter = 0;
 int traveled_distance = 0;
 int ledState = LOW;   // ledState used to set the LED
 
-boolean positive_speed = true;
-boolean objectNextTo = false;
-char input;
-String command="";
+boolean positive_speed = true;           // "true" for moving forward and "false" for moving backwards
+boolean objectNextTo = false;            // "true" when there is an object to the side and "false" when there is none
+String command="";                       // input given through the mobile app
+char input;                              // command converted into the char
 
 
 //*********************************************************************************
@@ -165,8 +165,8 @@ void led(){
 boolean checkObstaclesFront(){
    boolean obstacle_in_front = false; 
    int current_distance = front_sensor.getDistance();
-   if (current_distance > 0 && current_distance < 20) {
-      car.setAngle(0);
+   if (current_distance > 0 && current_distance < 20) {             // car gradually decreases speed and stops 
+      car.setAngle(0);                                              // if an obstacle is detected less than 20cm in front
       for (int i = 30; i > 0; i--){
          car.setSpeed(i);
          delay(20);
@@ -175,17 +175,6 @@ boolean checkObstaclesFront(){
    }
 return obstacle_in_front;
 }
-
-//boolean checkObstaclesRear(){
-//   boolean obstacle_in_rear = false; 
-//   int rear_distance = rear_sensor.getDistance();
-//   if (rear_distance > 0 && rear_distance < 20) {
-//     car.setSpeed(0);
-//     car.setAngle(0);
-//     obstacle_in_rear = true;
-//   }
-//   return obstacle_in_rear;
-//}
 
 
 //*********************************************************************************
@@ -198,7 +187,7 @@ void parkingSpotting(){
      int current_distance = front_sensor.getDistance();
      int side_distance = side_sensor.getDistance();
 
-     if ((current_distance > 20 || current_distance == 0) &&
+     if ((current_distance > 20 || current_distance == 0) &&                                // response to no objects
                                      (side_distance > 20 || side_distance == 0)) {
         car.setSpeed(30);
         car.setAngle(0);
@@ -207,11 +196,11 @@ void parkingSpotting(){
         }
      }
   
-     else if (current_distance > 0 && current_distance < 20) {
-        car.setSpeed(0);
+     else if (current_distance > 0 && current_distance < 20) {                              // response to object in the front
+        stop();
      }
   
-     else if (side_distance > 0 && side_distance < 20){
+     else if (side_distance > 0 && side_distance < 20){                                     // response to the object on the side
         if (objectNextTo == false){
            side_obstacle_counter += 1;
            traveled_distance = odometer.getDistance();
@@ -221,7 +210,7 @@ void parkingSpotting(){
         car.setAngle(0);
      }
    }
-   side_obstacle_counter = 0;
+   side_obstacle_counter = 0;                   // reset the counter
    parallelParking();
 }
 
@@ -237,7 +226,7 @@ void parallelParking(){
   int initial_direction = car_direction;
   int turn_degree;
   
-  if (car_direction >= 45)
+  if (car_direction >= 45)                                              // setting turning angles
      turn_degree = car_direction - 45;
   else {
      turn_degree = 360 - (45 - car_direction);
@@ -249,7 +238,7 @@ void parallelParking(){
   int upS_bound = initial_direction + 5;  
 
 
-  while (car_direction < low_bound || car_direction > up_bound){
+  while (car_direction < low_bound || car_direction > up_bound){        // car turns its back towards parking spot
      car.setSpeed(-25);
      car.setAngle(40);
      gyro.update();
@@ -257,13 +246,13 @@ void parallelParking(){
   }
 
   int rear_distance = rear_sensor.getDistance();
-  while (rear_distance > 15){
+  while (rear_distance > 15){                                           // car moves backwards to get into the parking spot
      rear_distance = rear_sensor.getDistance();
      car.setSpeed(-20);
      car.setAngle(0);
   }
 
-  while (car_direction < lowS_bound || car_direction > upS_bound){
+  while (car_direction < lowS_bound || car_direction > upS_bound){      // car turns again to allign itself with the initial direction
      car.setSpeed(-24);
      car.setAngle(-60);
      gyro.update();
