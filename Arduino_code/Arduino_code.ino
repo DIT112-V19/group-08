@@ -49,7 +49,6 @@ SimpleCar car(control);
 //*********************************************************************************
 unsigned long previousMillis = 0;        // will store last time LED was updated
 const long interval = 1000;              // interval at which to blink (milliseconds)
-const int blinkInterval = 600;
 const int failproof_distance = 100;      // distance for which algorithm ignores side sensor returned values
 int side_obstacle_counter = 0;
 int traveled_distance = 0;
@@ -84,7 +83,8 @@ void loop() {
   checkObstaclesFront();
 //  checkObstaclesRear();
   remote_Command(command);
-  led();
+//  forward();
+//  stop();
 }
 
 
@@ -140,7 +140,7 @@ void remote_Command(String command){
 //*********************************************************************************
 // LED light algorithm
 //*********************************************************************************
-void led(){
+void ledBlink(){
    unsigned long currentMillis = millis();
 
   if (currentMillis - previousMillis >= interval) {
@@ -158,6 +158,16 @@ void led(){
   }
 }
 
+void ledOn(){
+  ledState = HIGH;
+  digitalWrite(ledPin, ledState);
+}
+
+void ledOff(){
+  ledState = LOW;
+  digitalWrite(ledPin, ledState);
+}
+
 
 //*********************************************************************************
 // Collision avoidance code while driving the car manually
@@ -172,6 +182,9 @@ boolean checkObstaclesFront(){
          delay(20);
      }
      obstacle_in_front = true;
+     car.setSpeed(0);
+     obstacle_in_front = true;
+     ledOn();
    }
 return obstacle_in_front;
 }
@@ -191,6 +204,7 @@ void parkingSpotting(){
                                      (side_distance > 20 || side_distance == 0)) {
         car.setSpeed(30);
         car.setAngle(0);
+        ledBlink();
         if (odometer.getDistance() - traveled_distance > failproof_distance){
           objectNextTo = false;
         }
@@ -198,6 +212,7 @@ void parkingSpotting(){
   
      else if (current_distance > 0 && current_distance < 20) {                              // response to object in the front
         stop();
+        ledOn();
      }
   
      else if (side_distance > 0 && side_distance < 20){                                     // response to the object on the side
@@ -208,6 +223,7 @@ void parkingSpotting(){
         objectNextTo = true;
         car.setSpeed(30);
         car.setAngle(0);
+        ledBlink();
      }
    }
    side_obstacle_counter = 0;                   // reset the counter
@@ -243,6 +259,7 @@ void parallelParking(){
      car.setAngle(40);
      gyro.update();
      car_direction = gyro.getHeading();
+     ledBlink();
   }
 
   int rear_distance = rear_sensor.getDistance();
@@ -250,6 +267,7 @@ void parallelParking(){
      rear_distance = rear_sensor.getDistance();
      car.setSpeed(-20);
      car.setAngle(0);
+     ledBlink();
   }
 
   while (car_direction < lowS_bound || car_direction > upS_bound){      // car turns again to allign itself with the initial direction
@@ -257,6 +275,7 @@ void parallelParking(){
      car.setAngle(-60);
      gyro.update();
      car_direction = gyro.getHeading();
+     ledBlink();
   }
 }
 
@@ -268,26 +287,31 @@ void forward() {
     positive_speed = true;
     car.setSpeed(30);
     car.setAngle(0);
+    ledBlink();
 }
 void backward() {
     car.setSpeed(-30);
     car.setAngle(0);
+    ledBlink();
 }
 void right() {
   if (positive_speed == true) 
       car.setSpeed(30);
   else car.setSpeed(-30);
   car.setAngle(70);
+  ledBlink();
 }
 void left() {
   if (positive_speed == true) 
       car.setSpeed(30);
   else car.setSpeed(-30);
   car.setAngle(-70);
+  ledBlink();
 }
 
 void stop() {
   car.setSpeed(0);
+  ledOn();
 }
 
 void resetAngle() {
@@ -301,6 +325,7 @@ void resetAngle() {
 void cruiseControl() {
   car.setSpeed(30);
   car.setAngle(0);
+  ledBlink();
   input = command[0];
 
   while (input!='0'){
