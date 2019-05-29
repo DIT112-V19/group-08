@@ -177,14 +177,9 @@ boolean checkObstaclesFront(){
    int current_distance = front_sensor.getDistance();
    if (current_distance > 0 && current_distance < 20) {             // car gradually decreases speed and stops 
       car.setAngle(0);                                              // if an obstacle is detected less than 20cm in front
-      for (int i = 30; i > 0; i--){
-         car.setSpeed(i);
-         delay(20);
-     }
-     obstacle_in_front = true;
-     car.setSpeed(0);
-     obstacle_in_front = true;
-     ledOn();
+      car.setSpeed(0);      
+      obstacle_in_front = true;
+      ledOn();
    }
 return obstacle_in_front;
 }
