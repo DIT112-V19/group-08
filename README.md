@@ -51,7 +51,7 @@ Follow these steps to install the product
 1. *Download the latest version of Arduino IDE*
 2. *Open the sketch Arduino_code/Arduino_code.ino*
 3. *Connect the SmartCar*
-4. *Compile the sketch and update it to the SmartCar*
+4. *Compile the sketch and upload it to the SmartCar*
 
 Now it's time to install the Android app
 
@@ -62,3 +62,13 @@ Now it's time to install the Android app
 
 
 ## 3. Manual <a id="manual"></a>
+
+1. Open the application, titled "Project"
+2. Tap on Bluetooth button
+3. Once Bluetooth is turned on, tap on connect to car
+4. There are 3 Operational Options: Cruise Control, Manual Control and Parking
+5. For cruise control, tap on it and the car will manoveur and avoid obstacles automatically
+6. For manual control, there are 4 directional controls and a speed adjustment slider
+7. [Manual Control]: Forward, Backward, Left and Right buttons moves the car accordingly when tapped
+8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
+9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel 	parking mode
