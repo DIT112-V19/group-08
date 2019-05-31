@@ -2,8 +2,8 @@
 
 ###Content table
 1. <a href="#ourproject">Our Project</a>
-2. Installation
-3. Manual
+2. <a href="#installation">Installation</a>
+3. <a href="#manual">Manual</a>
 
 ## 1. Our Project: Autonomous parking with Smartcar<a id="ourproject"></a>
 
@@ -43,7 +43,7 @@ Goal of this idea is intended for comfortability of the customer and efficiency 
 ### Customer
 - Dimitrios Platis
 
-## 2. Installation
+## 2. Installation<a id="installation"></a>
 
 Follow these steps to install the product
 
@@ -61,4 +61,4 @@ Now it's time to install the Android app
 3. Find the application "" and open it
 
 
-## 3. Manual 
+## 3. Manual <a id="manual"></a>
