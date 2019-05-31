@@ -1,6 +1,11 @@
 # group-08
 
-## Autonomous parking with Smartcar
+### Content table
+1. <a href="#ourproject">Our Project</a>
+2. <a href="#installation">Installation</a>
+3. <a href="#manual">Manual</a>
+
+## 1. Our Project: Autonomous parking with Smartcar<a id="ourproject"></a>
 
 <img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
 
@@ -38,3 +43,22 @@ Goal of this idea is intended for comfortability of the customer and efficiency 
 ### Customer
 - Dimitrios Platis
 
+## 2. Installation<a id="installation"></a>
+
+Follow these steps to install the product
+
+**SmartCar**
+1. *Download the latest version of Arduino IDE*
+2. *Open the sketch Arduino_code/Arduino_code.ino*
+3. *Connect the SmartCar*
+4. *Compile the sketch and update it to the SmartCar*
+
+Now it's time to install the Android app
+
+**Android Phone**
+1. *Download the apk on an Android phone*
+2. *Install the apk*
+3. *Find the application "" and open it*
+
+
+## 3. Manual <a id="manual"></a>
