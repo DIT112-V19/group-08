@@ -4,6 +4,7 @@ package com.example.project;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -125,7 +126,7 @@ public class ManualControls extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP)
                 {
-                    command = "0";
+                    command = "1";
                     try {
 
                         //Sending string 0 to the car (0 is used when user releases the button. Speed of the car is set to 0.)
@@ -154,7 +155,7 @@ public class ManualControls extends AppCompatActivity {
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP)
                 {
-                    command = "0";
+                    command = "1";
                     try {
 
                         //Sending string 0 to the car (0 is used when user releases the button. Speed of the car is set to 0.)
@@ -173,7 +174,8 @@ public class ManualControls extends AppCompatActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             // updated continuously as the user slides the thumb
-            String str= String.format("S%d",progress);
+            String str= String.format("%d",progress);
+            str= Integer.toString(Integer.parseInt(str)+1);
             try {
                 MainPage.btSocket.getOutputStream().write(str.getBytes());
             } catch (IOException e) {
@@ -191,9 +193,9 @@ public class ManualControls extends AppCompatActivity {
             // called after the user finishes moving the SeekBar
         }
     };
-        @Override
-        protected void onStart()
-        {
-            super.onStart();
-        }
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
     }
+}
