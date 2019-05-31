@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 
 import java.io.IOException;
@@ -25,8 +26,6 @@ public class ManualControls extends AppCompatActivity {
     //String that will store different values that will be sent to the car using bluetooth
     String command;
 
-
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,9 @@ public class ManualControls extends AppCompatActivity {
         right = (Button) findViewById(R.id.right);
         reverse = (Button) findViewById(R.id.backwards);
 
+        SeekBar seekBar = findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+        int progress = seekBar.getProgress();
 
         forward.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -75,6 +77,7 @@ public class ManualControls extends AppCompatActivity {
                 return false;
             }
         });
+
         reverse.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -165,6 +168,29 @@ public class ManualControls extends AppCompatActivity {
         });
     }
 
+    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            // updated continuously as the user slides the thumb
+            String str= String.format("S%d",progress);
+            try {
+                MainPage.btSocket.getOutputStream().write(str.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            // called when the user first touches the SeekBar
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            // called after the user finishes moving the SeekBar
+        }
+    };
         @Override
         protected void onStart()
         {
