@@ -48,17 +48,17 @@ Goal of this idea is intended for comfortability of the customer and efficiency 
 Follow these steps to install the product
 
 **SmartCar**
-1. Download the latest version of Arduino IDE
-2. Open the sketch Arduino_code/Arduino_code.ino
-3. Connect the SmartCar
-4. Compile the sketch and update it to the SmartCar
+1. *Download the latest version of Arduino IDE*
+2. *Open the sketch Arduino_code/Arduino_code.ino*
+3. *Connect the SmartCar*
+4. *Compile the sketch and update it to the SmartCar*
 
 Now it's time to install the Android app
 
 **Android Phone**
-1. Download the apk on an Android phone
-2. Install the apk
-3. Find the application "" and open it
+1. *Download the apk on an Android phone*
+2. *Install the apk*
+3. *Find the application "" and open it*
 
 
 ## 3. Manual <a id="manual"></a>
