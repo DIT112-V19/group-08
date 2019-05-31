@@ -11,39 +11,42 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+public class MainPage extends AppCompatActivity {
 
     private ProgressDialog progress;
     public static BluetoothSocket btSocket = null;
-    BluetoothAdapter myBluetooth = null;
+    private BluetoothAdapter myBluetooth = null;
     private boolean isBtConnected = false;
-    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    final String  address = "20:15:10:20:05:64";
+    private static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private final String  address = "20:15:10:20:05:64";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_page);
 
-        Button connect = (Button) findViewById(R.id.connect);
+        //This Button is used to connect to the paired car with the bluetooth
+        Button connect = findViewById(R.id.connect);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MainActivity.ConnectBT().execute();
+                //An attempt to connect to the car is executed
+                new MainPage.ConnectBT().execute();
             }
         });
 
-        Button cruise = (Button) findViewById(R.id.CruiseControlBtn);
+        //This Button activates the cruise control functionality of the car (obstacle avoidance)
+        Button cruise = findViewById(R.id.CruiseControlBtn);
         cruise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    //Send the string C to the car (C stands for Cruise control)
                     btSocket.getOutputStream().write("C".getBytes());
-                } catch (IOException e) {
+                } catch (Exception e) {
                     msg("Error");
                 }
             }
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ManualControl(View view){
-        Intent startNewActivity = new Intent(this, Main2Activity.class);
+        Intent startNewActivity = new Intent(this, ManualControls.class);
         startActivity(startNewActivity);
     }
 
@@ -65,11 +68,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(startNewActivity);
     }
 
+    //Method to write Toasts faster
     private void msg(String s)
     {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
+    //This class is used to connect to the paired car
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
@@ -77,31 +82,43 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute()
         {
-            progress = ProgressDialog.show(MainActivity.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+            //show a progress dialog
+            progress = ProgressDialog.show(MainPage.this, "Connecting...", "Please wait!!!");
         }
 
         @Override
-        protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
+        //while the progress dialog is shown, the connection is done in background
+        protected Void doInBackground(Void... devices)
         {
             try
             {
                 if (btSocket == null || !isBtConnected)
                 {
-                    myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                    //get the mobile bluetooth device
+                    myBluetooth = BluetoothAdapter.getDefaultAdapter();
+
+                    //connects to the device's address and checks if it's available
+                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);
+
+                    //create a RFCOMM (SPP) connection
+                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);
+
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-                    btSocket.connect();//start connection
+
+                    //start connection
+                    btSocket.connect();
                 }
             }
             catch (IOException e)
             {
-                ConnectSuccess = false;//if the try failed, you can check the exception here
+                ConnectSuccess = false;
             }
             return null;
         }
+
         @Override
-        protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
+        //after the doInBackground, it checks if everything went fine
+        protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
 
