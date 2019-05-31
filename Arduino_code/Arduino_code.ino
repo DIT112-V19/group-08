@@ -53,12 +53,12 @@ const int failproof_distance = 100;      // distance for which algorithm ignores
 int side_obstacle_counter = 0;
 int traveled_distance = 0;
 int ledState = LOW;   // ledState used to set the LED
+int global_speed = 50;
 
 boolean positive_speed = true;           // "true" for moving forward and "false" for moving backwards
 boolean objectNextTo = false;            // "true" when there is an object to the side and "false" when there is none
 String command="";                       // input given through the mobile app
 char input;                              // command converted into the char
-
 
 //*********************************************************************************
 // Setup for the car Arduino code and main loop
@@ -80,7 +80,7 @@ void setup() {
 void loop() {
   gyro.update();
   checkBluetoothData();
-  checkObstaclesFront();
+//  checkObstaclesFront();
 //  checkObstaclesRear();
   remote_Command(command);
 //  forward();
@@ -132,6 +132,41 @@ void remote_Command(String command){
       case '1':
         resetAngle();
         break;
+      case '2':
+        global_speed = 20;
+        if(positive_speed)
+        car.setSpeed(20);
+        else
+        car.setSpeed(-20);
+        break;
+      case '3':
+      global_speed = 30;
+        if(positive_speed)
+        car.setSpeed(30);
+        else
+        car.setSpeed(-30);
+        break;
+      case '4':
+        global_speed = 40;
+        if(positive_speed)
+        car.setSpeed(40);
+        else
+        car.setSpeed(-40);
+        break;
+      case '5':
+        global_speed = 50;
+        if(positive_speed)
+        car.setSpeed(50);
+        else
+        car.setSpeed(-50);
+        break;
+      case '6':
+        global_speed = 60;
+        if(positive_speed)
+        car.setSpeed(60);
+        else
+        car.setSpeed(-60);
+        break;
     }
   }
 }
@@ -172,17 +207,17 @@ void ledOff(){
 //*********************************************************************************
 // Collision avoidance code while driving the car manually
 //*********************************************************************************
-boolean checkObstaclesFront(){
-   boolean obstacle_in_front = false; 
-   int current_distance = front_sensor.getDistance();
-   if (current_distance > 0 && current_distance < 20) {             // car gradually decreases speed and stops 
-      car.setAngle(0);                                              // if an obstacle is detected less than 20cm in front
-      car.setSpeed(0);      
-      obstacle_in_front = true;
-      ledOn();
-   }
-return obstacle_in_front;
-}
+//boolean checkObstaclesFront(){
+//   boolean obstacle_in_front = false; 
+//   int current_distance = front_sensor.getDistance();
+//   if (current_distance > 0 && current_distance < 20) {             // car gradually decreases speed and stops 
+//      car.setAngle(0);                                              // if an obstacle is detected less than 20cm in front
+//      car.setSpeed(0);      
+//      obstacle_in_front = true;
+//      ledOn();
+//   }
+//return obstacle_in_front;
+//}
 
 
 //*********************************************************************************
@@ -280,27 +315,32 @@ void parallelParking(){
 //*********************************************************************************
 void forward() {
     positive_speed = true;
-    car.setSpeed(30);
+    car.setSpeed(global_speed);
     car.setAngle(0);
     ledBlink();
 }
 void backward() {
-    car.setSpeed(-30);
+    positive_speed = false;
+    car.setSpeed(global_speed*-1);
     car.setAngle(0);
     ledBlink();
 }
 void right() {
-  if (positive_speed == true) 
-      car.setSpeed(30);
-  else car.setSpeed(-30);
-  car.setAngle(70);
+//  if (positive_speed == true){
+//      car.setSpeed(40);     
+//  } else {
+//    car.setSpeed(-40);
+//  }
+  car.setAngle(55);
   ledBlink();
 }
 void left() {
-  if (positive_speed == true) 
-      car.setSpeed(30);
-  else car.setSpeed(-30);
-  car.setAngle(-70);
+//  if (positive_speed == true){
+//      car.setSpeed(40);     
+//  } else {
+//    car.setSpeed(-40);
+//  }
+  car.setAngle(-55);
   ledBlink();
 }
 
