@@ -10,9 +10,15 @@
 2. <a href="#2">Technical aspects</a>
    1. <a href="#2.1">Components we are going to use</a>
    2. <a href="#2.2">Softwares used and Development environment</a>
-3. <a href="#3">Installation</a>
-4. <a href="#4">Manual</a>
-5. <a href="#5">Contributors</a>
+3. <a href="#3">Features</a>
+   + Obstacle avoidance
+   + Bluetooth connection
+   + Manual control
+   + Autonomous driving
+   + LED light
+4. <a href="#4">Installation</a>
+5. <a href="#5">Manual</a>
+6. <a href="#6">Contributors</a>
 
 <br><br>
 ## <a id="1"></a>1. Our Project: Autonomous parking with Smartcar 
@@ -65,11 +71,11 @@ Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 <br><br>
 ## 3. <a id="3"></a>Features
 
-### Object avoidance
-The Smartcar is able to detect obstacle using the Ultrasonic Sensors mounted on the front and on the back of the car.
+### Obstacle avoidance
+The Smartcar is able to detect obstacles using the Ultrasonic Sensors mounted on the front and on the back of the car.
 
 ### Bluetooth connection
-The Smartcar can be connected to an android phone 
+The Smartcar can be connected to an android phone. From the Android app it is possible to turn on/off the bluetooth of the phone, see a list of discovered devices in the nearby and toggle the discoverability of the phone. 
 
 ### Manual control
 Through the Android app it is possible to manually control the Smartcar- the car is able to drive forward, backwards, forward turning left, forward turning right, backwards turning left and backwards turning right.
@@ -79,27 +85,29 @@ Through the Android app it is possible to activate the autonomous driving mode w
 
 ### Automatic parallel parking
 Through the Android app it is possible to start the parking manouvre that will park the car between two obstacles as the picture shows <a href="#gif">here</a>. 
-### LED Light
+
+### LED light
+A LED Light will blink to signal that the car is in motion, in addition it will stay turned on while the car is still.
 
 <br><br>
-## 3. <a id="3"></a>Installation 
+## 4. <a id="4"></a>Installation 
 
-Here you can find the steps to follow in order to try the app
+Here you can find the steps to follow in order to try the app.
 
 Before starting you should clone our repository, if you have Git Bash open a terminal and type  
 ```git
 git clone https://github.com/DIT112-V19/group-08.git
 ```
-Otherwise download the repository from <a href="https://github.com/DIT112-V19/group-08/archive/master.zip">here</a>
+Otherwise download the repository from <a href="https://github.com/DIT112-V19/group-08/archive/master.zip">here.</a>
 
-**Setup the SmartCar**
+**Setup the Smartcar**
 1. *Download the latest version of <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>*
 2. *Install the <a href="https://www.arduinolibraries.info/libraries/smartcar-shield">Smartcar shield library</a>*
 2. *Open the sketch <a href="https://github.com/DIT112-V19/group-08/blob/master/Arduino_code/Arduino_code.ino">Arduino_code/Arduino_code.ino</a>*
 3. *Connect the SmartCar*
 4. *Compile the sketch and upload it to the SmartCar*
 
-Now it's time to install the Android app
+Now it's time to install the Android app:
 
 **Setup the Android Phone**
 1. *Download the apk <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
@@ -107,7 +115,7 @@ Now it's time to install the Android app
 3. *Find the application "Project" and open it*
 
 <br><br>
-## 4. <a id="4"></a>Manual 
+## 5. <a id="5"></a>Manual 
 
 1. Open the application, titled "Project"
 2. Tap on Bluetooth button
@@ -115,12 +123,12 @@ Now it's time to install the Android app
 4. There are 3 Operational Options: Cruise Control, Manual Control and Parking
 5. For cruise control, tap on it and the car will manoveur and avoid obstacles automatically
 6. For manual control, there are 4 directional controls and a speed adjustment slider
-7. [Manual Control]: Forward, Backward, Left and Right buttons moves the car accordingly when tapped
+7. [Manual Control]: Forward, Backward, Left and Right buttons moves the car accordingly when tapped (it is possible to hold pressed two adjacent buttons)
 8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
 9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel 	parking mode
 
 <br><br>
-## 5. <a id="5"></a>Contributors 
+## 6. <a id="6"></a>Contributors 
 - <a href="https://github.com/FrenzyRic"> <img src="https://avatars3.githubusercontent.com/u/43994809?s=460&v=4" width="17" height="17"> Adelric Wong</a>
 - <a href="https://github.com/Shab98"> <img src="https://avatars2.githubusercontent.com/u/45070337?s=460&v=4" width="17" height="17"> Shab Pompeiano</a>
 - <a href="https://github.com/7SJ7"> <img src="https://avatars1.githubusercontent.com/u/44894294?s=460&v=4" width="17" height="17"> Stanko Jankovic</a>
