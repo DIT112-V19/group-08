@@ -103,7 +103,7 @@ git clone https://github.com/DIT112-V19/group-08.git
 ```
 Otherwise download the repository from <a href="https://github.com/DIT112-V19/group-08/archive/master.zip">here.</a>
 
-**Setup the Smartcar** <a id="4.1"></a>
+<a id="4.1"></a>**Setup the Smartcar** 
 1. *Download the latest version of <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>*
 2. *Install the <a href="https://www.arduinolibraries.info/libraries/smartcar-shield">Smartcar shield library</a>*
 2. *Open the sketch <a href="https://github.com/DIT112-V19/group-08/blob/master/Arduino_code/Arduino_code.ino">Arduino_code/Arduino_code.ino</a>*
@@ -112,7 +112,7 @@ Otherwise download the repository from <a href="https://github.com/DIT112-V19/gr
 
 Now it's time to install the Android app:
 
-**Setup the Android Phone** <a id="4.2"></a>
+<a id="4.2"></a>**Setup the Android Phone** 
 1. *Download the apk <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
 2. *Install the apk*
 3. *Find the application "Project" and open it*
