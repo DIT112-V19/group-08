@@ -24,6 +24,8 @@
 6. <a href="#6">Contributors</a>
 
 <br><br>
+Our video demo: https://www.youtube.com/watch?v=Qo-2rCpGn8w
+<br><br>
 ## <a id="1"></a>1. Our Project: Autonomous parking with Smartcar 
 
 <a id="gif"></a><img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
