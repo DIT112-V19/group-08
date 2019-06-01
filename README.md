@@ -60,7 +60,7 @@ We want to reduce the amount of accidents the cars are involved in and increase 
   - **3x Ultrasonic Sensor HC-SR04**
   - **LED light**
 
-The **Smartcar shield** is the core of the car, all the components are mounted on the shield, including the **Arduino Mega 2560 REV3** which is the "brain" of the Smartcar as the applicative that controls the car and all its connected components will run on this.<br>
+The **Smartcar shield** is the core of the car, all the components are mounted on the shield, including the **Arduino Mega 2560 REV3** which is the "brain" of the Smartcar as the application that controls the car and all its connected components will run on this.<br>
 Three **Ultrasonic Sensors HC-SR04** are mounted accordingly in front, to the right and on the back of the car and used to detect obstacles.<br>
 Moreover a **Bluetooth Module HC-06** is also connected to the car to make the car communicate with the Android app- and two **Speed encoders** measure the distance travelled by the car (one for each side of the car).<br>
 Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
