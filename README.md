@@ -30,16 +30,16 @@
 
 ### <a id="1.1"></a>What is our idea? 
 
-Our main idea for this project is a smartcar that is capable of autonomous parking in an empty spot when given a command to do so. We are directing our focus on **automatic parking functionality**, but will also see if there is enough time for additional functionalities to be implemented, namely - making manual controls for the car, autonomous parking specialization (for different cases).
+Our main idea for this project is a Smartcar that is capable of autonomous parking in an empty spot when given a command to do so. We are directing our focus on **automatic parking functionality**, but will also see if there is enough time for additional functionalities to be implemented, namely - making manual controls for the car, autonomous parking specialization (for different cases).
 
 
 
 ### <a id="1.2"></a>How are we going to do this? 
-Car will stay idle till it is interacted with. In order to relay the command to park, along with a few other commands (**Bluetooth commands** **start moving**, **stop**, **LED light blinking during certain maneuvers**, **manual controls** and **parking feature**), we are going to create **UI** for the car - a simple **mobile app** which uses bluetooth connection to communicate with the car. After receiving a command, smartcar will change its movement accordingly to correspond to it. Smartcar at the same time will include obstacle avoidance capabilities to **avoid collision** while on autonomous movement (i.e. detecting obstacles in front of it, behind it, as well as on the car's right side in order to park without hitting anything).
+Car will stay idle till it is interacted with. In order to relay the command to park, along with a few other commands (**Bluetooth commands** **start moving**, **stop**, **LED light blinking during certain maneuvers**, **manual controls** and **parking feature**), we are going to create **UI** for the car - a simple **mobile app** which uses bluetooth connection to communicate with the car. After receiving a command, Smartcar will change its movement accordingly to correspond to it. Smartcar at the same time will include obstacle avoidance capabilities to **avoid collision** while on autonomous movement (i.e. detecting obstacles in front of it, behind it, as well as on the car's right side in order to park without hitting anything).
 
 ### <a id="1.3"></a>Why? 
-Goal of this idea is intended for comfortability of the customer and efficiency in performing common everyday task with just a few buttons pressed on your smartphone. Autonomous parking aids safety purposes as well.<br>
-We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection in order to avoid obstacles in a smarter way.
+Goal of this idea is to make the customer more comfortable and to increase efficiency in performing common everyday task with just a few buttons pressed on the smartphone. Autonomous parking aids safety purposes as well.<br>
+We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection performance in order to avoid obstacles in a smarter way.
 
 ### <a id="1.4"></a>Product owners 
 - Ilja Pavlov
@@ -87,7 +87,7 @@ Through the Android app it is possible to manually control the Smartcar- the car
 Through the Android app it is possible to activate the autonomous driving mode which will make the car drive until an obstacle is approached, then the car will turn right or left if there is an obstacle to the right side of the car too. Afterwards, the car will continue with the ride, until the user gives another command.
 
 ### <a id="3.5"></a>Automatic parallel parking
-Through the Android app it is possible to start the parking manouvre that will park the car between two obstacles as the picture shows <a href="#gif">here</a>. 
+Through the Android app it is possible to start the parking manoeuvre that will park the car between two obstacles as the picture shows <a href="#gif">here</a>. 
 
 ### <a id="3.6"></a>LED light
 A LED Light will blink to signal that the car is in motion. As soon as the car stops, a LED light will stop blinking and switch the state to stable ON. This feature works for all 3 modes (**Manual control, Autonomous driving (Cruise control), Automatic parallel parking**)
@@ -113,8 +113,8 @@ Otherwise download the repository from <a href="https://github.com/DIT112-V19/gr
 Now it's time to install the Android app:
 
 <a id="4.2"></a>**Setup the Android Phone** 
-1. *Download the apk <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
-2. *Install the apk*
+1. *Download the APK <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
+2. *Install the APK*
 3. *Find the application "Project" and open it*
 
 <br><br>
@@ -124,7 +124,7 @@ Now it's time to install the Android app:
 2. Tap on Bluetooth button
 3. Once Bluetooth is turned on, tap on connect to car
 4. There are 3 Operational Options: Cruise Control, Manual Control and Parking
-5. For cruise control, tap on it and the car will manoveur and avoid obstacles automatically
+5. For cruise control, tap on it and the car will manoeuvre and avoid obstacles automatically
 6. For manual control, there are 4 directional controls and a speed adjustment slider
 7. [Manual Control]: Forward, Backward, Left and Right buttons moves the car accordingly when tapped (it is possible to hold pressed two adjacent buttons)
 8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
