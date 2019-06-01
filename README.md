@@ -5,8 +5,8 @@
    1. <a href="#1.1">What is our idea?</a>
    2. <a href="#1.2">How are we going to do this?</a>
    3. <a href="#1.3">Why?</a>
-   4. <a href="#1.4">Customer</a>
-   5. <a href="#1.5">Product Owner</a>
+   4. <a href="#1.4">Product Owner</a>
+   5. <a href="#1.5">Customer</a>
 2. <a href="#2">Technical aspects</a>
    1. <a href="#2.1">Components we are going to use</a>
    2. <a href="#2.2">Softwares used and Development environment</a>
@@ -30,12 +30,12 @@ Car will stay idle till it is interacted with. In order to relay the command to 
 ### <a id="1.3"></a>1.3 Why? 
 Goal of this idea is intended for comfortability of the customer and efficiency in performing common everyday task with just a few buttons pressed on your smartphone. Autonomous parking aids safety purposes as well. We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection in order to avoid obstacles in a smarter way.
 
-### 1.4 <a id="1.4"></a>Customer 
-- Dimitrios Platis
-
-### 1.5 <a id="1.5"></a>Product owners 
+### 1.4 <a id="1.4"></a>Product owners 
 - Ilja Pavlov
 - M Nazeeh Alhosary
+
+### 1.5 <a id="1.5"></a>Customer 
+- Dimitrios Platis
 
 ## 2. <a id="2"></a>Technical aspects 
 
@@ -93,8 +93,8 @@ Now it's time to install the Android app
 9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel 	parking mode
 
 ## 5. <a id="5"></a>Contributors 
-- <a href="https://github.com/FrenzyRic">Adelric Wong</a>
-- <a href="https://github.com/Shab98">Shab Pompeiano</a>
-- <a href="https://github.com/7SJ7">Stanko Jankovic</a>
-- <a href="https://github.com/The-R-Win">Arvin Esfahani Zadeh Sakhi Langeroudi</a>
-- <a href="https://github.com/TheMartyLekekas">Martynas Lekeckas</a> 
+- <a href="https://github.com/FrenzyRic"> <img src="https://avatars3.githubusercontent.com/u/43994809?s=460&v=4" width="17" height="17"> Adelric Wong</a>
+- <a href="https://github.com/Shab98"> <img src="https://avatars2.githubusercontent.com/u/45070337?s=460&v=4" width="17" height="17"> Shab Pompeiano</a>
+- <a href="https://github.com/7SJ7"> <img src="https://avatars1.githubusercontent.com/u/44894294?s=460&v=4" width="17" height="17"> Stanko Jankovic</a>
+- <a href="https://github.com/The-R-Win"> <img src="https://avatars3.githubusercontent.com/u/43420832?s=460&v=4" width="17" height="17"> Arvin Esfahani Zadeh Sakhi Langeroudi</a>
+- <a href="https://github.com/TheMartyLekekas"> <img src="https://avatars2.githubusercontent.com/u/43269722?s=460&v=4" width="17" height="17"> Martynas Lekeckas</a> 
