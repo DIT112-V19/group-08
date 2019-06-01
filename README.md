@@ -14,6 +14,7 @@
 4. <a href="#4">Manual</a>
 5. <a href="#5">Contributors</a>
 
+<br><br>
 ## <a id="1"></a>1. Our Project: Autonomous parking with Smartcar 
 
 <img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
@@ -27,8 +28,9 @@ Our main idea for this project is a smartcar that is capable of autonomous parki
 ### 1.2 <a id="1.2"></a>How are we going to do this? 
 Car will stay idle till it is interacted with. In order to relay the command to park, along with a few other commands (**Bluetooth commands** **start moving**, **stop**, **LED light blinking during certain maneuvers**, **manual controls** and **parking feature**), we are going to create **UI** for the car - a simple **mobile app** which uses bluetooth connection to communicate with the car. After receiving a command, smartcar will change its movement accordingly to correspond to it. Smartcar at the same time will include obstacle avoidance capabilities to **avoid collision** while on autonomous movement (i.e. detecting obstacles in front of it, behind it, as well as on the car's right side in order to park without hitting anything).
 
-### <a id="1.3"></a>1.3 Why? 
-Goal of this idea is intended for comfortability of the customer and efficiency in performing common everyday task with just a few buttons pressed on your smartphone. Autonomous parking aids safety purposes as well. We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection in order to avoid obstacles in a smarter way.
+### 1.3 <a id="1.3"></a>Why? 
+Goal of this idea is intended for comfortability of the customer and efficiency in performing common everyday task with just a few buttons pressed on your smartphone. Autonomous parking aids safety purposes as well.<br>
+We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection in order to avoid obstacles in a smarter way.
 
 ### 1.4 <a id="1.4"></a>Product owners 
 - Ilja Pavlov
@@ -37,6 +39,7 @@ Goal of this idea is intended for comfortability of the customer and efficiency 
 ### 1.5 <a id="1.5"></a>Customer 
 - Dimitrios Platis
 
+<br><br>
 ## 2. <a id="2"></a>Technical aspects 
 
 ### 2.1 <a id="2.1"></a>Components we are going to use 
@@ -48,9 +51,9 @@ Goal of this idea is intended for comfortability of the customer and efficiency 
   - **3x Ultrasonic Sensor HC-SR04**
   - **LED light**
 
-The **Smartcar shield** is the core of the car, all the components are mounted on the shield, including the **Arduino Mega 2560 REV3** which is the "brain" of the Smartcar as the applicative that controls the car and all its connected components will run on this.
-Three **Ultrasonic Sensors HC-SR04** are mounted accordingly in front, to the right and on the back of the car and used to detect obstacles. 
-Moreover a **Bluetooth Module HC-06** is also connected to the car to make the car communicate with the Android app- and two **Speed encoders** measure the distance travelled by the car (one for each side of the car).
+The **Smartcar shield** is the core of the car, all the components are mounted on the shield, including the **Arduino Mega 2560 REV3** which is the "brain" of the Smartcar as the applicative that controls the car and all its connected components will run on this.<br>
+Three **Ultrasonic Sensors HC-SR04** are mounted accordingly in front, to the right and on the back of the car and used to detect obstacles.<br>
+Moreover a **Bluetooth Module HC-06** is also connected to the car to make the car communicate with the Android app- and two **Speed encoders** measure the distance travelled by the car (one for each side of the car).<br>
 Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 
 ### 2.2 <a id="2.2"></a>Softwares used and Development environment 
@@ -59,8 +62,7 @@ Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 
 **Arduino IDE** has been used to develop and test the application that would run on the car.<br>**Android Studio** has been used to develop and test the application that would run on the android phone.
 
-
-
+<br><br>
 ## 3. <a id="3"></a>Installation 
 
 Here you can find the steps to follow in order to try the app
@@ -85,7 +87,7 @@ Now it's time to install the Android app
 2. *Install the apk*
 3. *Find the application "Project" and open it*
 
-
+<br><br>
 ## 4. <a id="4"></a>Manual 
 
 1. Open the application, titled "Project"
@@ -98,6 +100,7 @@ Now it's time to install the Android app
 8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
 9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel 	parking mode
 
+<br><br>
 ## 5. <a id="5"></a>Contributors 
 - <a href="https://github.com/FrenzyRic"> <img src="https://avatars3.githubusercontent.com/u/43994809?s=460&v=4" width="17" height="17"> Adelric Wong</a>
 - <a href="https://github.com/Shab98"> <img src="https://avatars2.githubusercontent.com/u/45070337?s=460&v=4" width="17" height="17"> Shab Pompeiano</a>
