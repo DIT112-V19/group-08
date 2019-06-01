@@ -65,17 +65,23 @@ Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 
 Here you can find the steps to follow in order to try the app
 
+Before starting you should clone our repository, if you have Git Bash open a terminal and type  
+```git
+git clone https://github.com/DIT112-V19/group-08.git
+```
+Otherwise download the repository from <a href="https://github.com/DIT112-V19/group-08/archive/master.zip">here</a>
+
 **Setup the SmartCar**
-1. *Download the latest version of Arduino IDE*
-2. *Install the Smartcar shield library*
-2. *Open the sketch Arduino_code/Arduino_code.ino*
+1. *Download the latest version of <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>*
+2. *Install the <a href="https://www.arduinolibraries.info/libraries/smartcar-shield">Smartcar shield library</a>*
+2. *Open the sketch <a href="https://github.com/DIT112-V19/group-08/blob/master/Arduino_code/Arduino_code.ino">Arduino_code/Arduino_code.ino</a>*
 3. *Connect the SmartCar*
 4. *Compile the sketch and upload it to the SmartCar*
 
 Now it's time to install the Android app
 
 **Setup the Android Phone**
-1. *Download the apk Project.apk on an Android phone*
+1. *Download the apk <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
 2. *Install the apk*
 3. *Find the application "Project" and open it*
 
