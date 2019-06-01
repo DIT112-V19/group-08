@@ -2,14 +2,14 @@
 
 ### Content table
 1. <a href="#1">Our Project</a>
-   1.1 <a href="#1.1">What is our idea?</a>
-   1.2 <a href="#1.2">How are we going to do this?</a>
-   1.3 <a href="#1.3">Why?</a>
-   1.4 <a href="#1.4">Customer</a>
-   1.5 <a href="#1.5">Product Owner</a>
+   1. <a href="#1.1">What is our idea?</a>
+   2. <a href="#1.2">How are we going to do this?</a>
+   3. <a href="#1.3">Why?</a>
+   4. <a href="#1.4">Customer</a>
+   5. <a href="#1.5">Product Owner</a>
 2. <a href="#2">Technical aspects</a>
-   2.1 <a href="#2.1">Components we are going to use</a>
-   2.2 <a href="#2.2">Softwares used and Development environment</a>
+   1. <a href="#2.1">Components we are going to use</a>
+   2. <a href="#2.2">Softwares used and Development environment</a>
 3. <a href="#3">Installation</a>
 4. <a href="#4">Manual</a>
 5. <a href="#5">Contributors</a>
