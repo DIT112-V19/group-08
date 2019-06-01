@@ -130,7 +130,7 @@ Now it's time to install the Android app:
 8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
 9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel parking mode
 
-<img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen1.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen2.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen5.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen3.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen4.png?raw=true" height="300px">
+<img src="https://github.com/DIT112-V19/group-08/blob/master/Screenshots/Screen1.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/master/Screenshots/Screen2.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/master/Screenshots/Screen5.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/master/Screenshots/Screen3.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/master/Screenshots/Screen4.png?raw=true" height="300px">
 
 <br><br>
 ## 6. <a id="6"></a>Contributors 
