@@ -128,7 +128,9 @@ Now it's time to install the Android app:
 6. For manual control, there are 4 directional controls and a speed adjustment slider
 7. [Manual Control]: Forward, Backward, Left and Right buttons moves the car accordingly when tapped (it is possible to hold pressed two adjacent buttons)
 8. [Manual Control]: Speed adjustment slider allows you to drag and slide the cursor to change the car speed
-9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel 	parking mode
+9. For Parking, when tapped there is a button called "Park" which sends the car into a parallel parking mode
+
+<img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen1.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen2.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen5.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen3.png?raw=true" height="300px"> <img src="https://github.com/DIT112-V19/group-08/blob/readme-adding-screens/Screenshots/Screen4.png?raw=true" height="300px">
 
 <br><br>
 ## 6. <a id="6"></a>Contributors 
