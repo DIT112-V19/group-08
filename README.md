@@ -17,7 +17,7 @@
 <br><br>
 ## <a id="1"></a>1. Our Project: Autonomous parking with Smartcar 
 
-<img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
+<a id="gif"></a><img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
 
 ### <a id="1.1"></a>1.1 What is our idea? 
 
@@ -61,6 +61,25 @@ Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
   - **Android Studio**
 
 **Arduino IDE** has been used to develop and test the application that would run on the car.<br>**Android Studio** has been used to develop and test the application that would run on the android phone.
+
+<br><br>
+## 3. <a id="3"></a>Features
+
+### Object avoidance
+The Smartcar is able to detect obstacle using the Ultrasonic Sensors mounted on the front and on the back of the car.
+
+### Bluetooth connection
+The Smartcar can be connected to an android phone 
+
+### Manual control
+Through the Android app it is possible to manually control the Smartcar- the car is able to drive forward, backwards, forward turning left, forward turning right, backwards turning left and backwards turning right.
+
+### Autonomous driving (Cruise control)
+Through the Android app it is possible to activate the autonomous driving mode which will make the car drive until an obstacle is approached, then the car will turn right or left if there is an obstacle to the right side of the car too. 
+
+### Automatic parallel parking
+Through the Android app it is possible to start the parking manouvre that will park the car between two obstacles as the picture shows <a href="#gif">here</a>. 
+### LED Light
 
 <br><br>
 ## 3. <a id="3"></a>Installation 
