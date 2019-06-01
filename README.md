@@ -2,20 +2,21 @@
 
 ### Content table
 1. <a href="#1">Our Project</a>
-   1. <a href="#1.1">What is our idea?</a>
-   2. <a href="#1.2">How are we going to do this?</a>
-   3. <a href="#1.3">Why?</a>
-   4. <a href="#1.4">Product Owner</a>
-   5. <a href="#1.5">Customer</a>
+   + <a href="#1.1">What is our idea?</a>
+   + <a href="#1.2">How are we going to do this?</a>
+   + <a href="#1.3">Why?</a>
+   + <a href="#1.4">Product Owner</a>
+   + <a href="#1.5">Customer</a>
 2. <a href="#2">Technical aspects</a>
-   1. <a href="#2.1">Components we are going to use</a>
-   2. <a href="#2.2">Softwares used and Development environment</a>
+   + <a href="#2.1">Components we are going to use</a>
+   + <a href="#2.2">Softwares used and Development environment</a>
 3. <a href="#3">Features</a>
-   + Obstacle avoidance
-   + Bluetooth connection
-   + Manual control
-   + Autonomous driving
-   + LED light
+   + <a href="#3.1">Obstacle avoidance</a>
+   + <a href="#3.2">Bluetooth connection</a>
+   + <a href="#3.3">Manual control</a>
+   + <a href="#3.4">Autonomous driving</a>
+   + <a href="#3.5">Automatic parallel parking</a>
+   + <a href="#3.6">LED light</a>
 4. <a href="#4">Installation</a>
 5. <a href="#5">Manual</a>
 6. <a href="#6">Contributors</a>
@@ -25,30 +26,30 @@
 
 <a id="gif"></a><img align="right" src="https://media.giphy.com/media/KHcGe1SGuh6sI2tYgy/giphy.gif">
 
-### <a id="1.1"></a>1.1 What is our idea? 
+### <a id="1.1"></a>What is our idea? 
 
 Our main idea for this project is a smartcar that is capable of autonomous parking in an empty spot when given a command to do so. We are directing our focus on **automatic parking functionality**, but will also see if there is enough time for additional functionalities to be implemented, namely - making manual controls for the car, autonomous parking specialization (for different cases).
 
 
 
-### 1.2 <a id="1.2"></a>How are we going to do this? 
+### <a id="1.2"></a>How are we going to do this? 
 Car will stay idle till it is interacted with. In order to relay the command to park, along with a few other commands (**Bluetooth commands** **start moving**, **stop**, **LED light blinking during certain maneuvers**, **manual controls** and **parking feature**), we are going to create **UI** for the car - a simple **mobile app** which uses bluetooth connection to communicate with the car. After receiving a command, smartcar will change its movement accordingly to correspond to it. Smartcar at the same time will include obstacle avoidance capabilities to **avoid collision** while on autonomous movement (i.e. detecting obstacles in front of it, behind it, as well as on the car's right side in order to park without hitting anything).
 
-### 1.3 <a id="1.3"></a>Why? 
+### <a id="1.3"></a>Why? 
 Goal of this idea is intended for comfortability of the customer and efficiency in performing common everyday task with just a few buttons pressed on your smartphone. Autonomous parking aids safety purposes as well.<br>
 We want to reduce the amount of accidents the cars are involved in and increase its obstacle detection in order to avoid obstacles in a smarter way.
 
-### 1.4 <a id="1.4"></a>Product owners 
+### <a id="1.4"></a>Product owners 
 - Ilja Pavlov
 - M Nazeeh Alhosary
 
-### 1.5 <a id="1.5"></a>Customer 
+### <a id="1.5"></a>Customer 
 - Dimitrios Platis
 
 <br><br>
 ## 2. <a id="2"></a>Technical aspects 
 
-### 2.1 <a id="2.1"></a>Components we are going to use 
+### <a id="2.1"></a>Components we are going to use 
   - **Smartcar shield**
   - **Arduino Mega 2560 REV3**
   - **Gyroscope GY-50 L3G4200**
@@ -62,7 +63,7 @@ Three **Ultrasonic Sensors HC-SR04** are mounted accordingly in front, to the ri
 Moreover a **Bluetooth Module HC-06** is also connected to the car to make the car communicate with the Android app- and two **Speed encoders** measure the distance travelled by the car (one for each side of the car).<br>
 Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 
-### 2.2 <a id="2.2"></a>Softwares used and Development environment 
+### <a id="2.2"></a>Softwares used and Development environment 
   - **Arduino IDE**
   - **Android Studio**
 
@@ -71,22 +72,22 @@ Finally there are a **LED light** and a **Gyroscope GY-50 L3G4200**
 <br><br>
 ## 3. <a id="3"></a>Features
 
-### Obstacle avoidance
+### <a id="3.1"></a>Obstacle avoidance
 The Smartcar is able to detect obstacles using the Ultrasonic Sensors mounted on the front and on the back of the car.
 
-### Bluetooth connection
+### <a id="3.2"></a>Bluetooth connection
 The Smartcar can be connected to an android phone. From the Android app it is possible to turn on/off the bluetooth of the phone, see a list of discovered devices in the nearby and toggle the discoverability of the phone. 
 
-### Manual control
+### <a id="3.3"></a>Manual control
 Through the Android app it is possible to manually control the Smartcar- the car is able to drive forward, backwards, forward turning left, forward turning right, backwards turning left and backwards turning right.
 
-### Autonomous driving (Cruise control)
+### <a id="3.4"></a>Autonomous driving (Cruise control)
 Through the Android app it is possible to activate the autonomous driving mode which will make the car drive until an obstacle is approached, then the car will turn right or left if there is an obstacle to the right side of the car too. 
 
-### Automatic parallel parking
+### <a id="3.5"></a>Automatic parallel parking
 Through the Android app it is possible to start the parking manouvre that will park the car between two obstacles as the picture shows <a href="#gif">here</a>. 
 
-### LED light
+### <a id="3.6"></a>LED light
 A LED Light will blink to signal that the car is in motion, in addition it will stay turned on while the car is still.
 
 <br><br>
@@ -100,7 +101,7 @@ git clone https://github.com/DIT112-V19/group-08.git
 ```
 Otherwise download the repository from <a href="https://github.com/DIT112-V19/group-08/archive/master.zip">here.</a>
 
-**Setup the Smartcar**
+**Setup the Smartcar** <a id="4.1"></a>
 1. *Download the latest version of <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>*
 2. *Install the <a href="https://www.arduinolibraries.info/libraries/smartcar-shield">Smartcar shield library</a>*
 2. *Open the sketch <a href="https://github.com/DIT112-V19/group-08/blob/master/Arduino_code/Arduino_code.ino">Arduino_code/Arduino_code.ino</a>*
@@ -109,7 +110,7 @@ Otherwise download the repository from <a href="https://github.com/DIT112-V19/gr
 
 Now it's time to install the Android app:
 
-**Setup the Android Phone**
+**Setup the Android Phone** <a id="4.2"></a>
 1. *Download the apk <a href="https://github.com/DIT112-V19/group-08/blob/master/Project.apk">Project.apk</a> on an Android phone*
 2. *Install the apk*
 3. *Find the application "Project" and open it*
