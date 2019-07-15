@@ -1,1 +1,31 @@
+language: bash
 
+env:
+    global:
+        # Use a modern C++ compiler
+        - CXX=g++-6
+        
+compiler:
+    - g++
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.8
+    packages:
+      - g++-6
+
+
+before_install:
+    # Install Travis CI configuration for Arduino sketches
+    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+
+install:
+    # Install Smartcar shield library (used by our sketch)
+    - arduino --install-library "Smartcar shield"
+
+script:
+    # Run the Arduino sketch's unit tests
+    - cd $TRAVIS_BUILD_DIR/Arduino_code/
+    - build_platform mega2560
