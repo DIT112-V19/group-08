@@ -1,10 +1,33 @@
-language: bash
+language: android
+jdk: oraclejdk8
 
+cache:
+  directories:
+    - ~/arduino_ide
+    - ~/.arduino15/packages/
+
+# Set environment variables
 env:
     global:
+        # Set timeout for the Android emulator to come online
+        - ADB_INSTALL_TIMEOUT=10
+        # Set the minimum Android API to support
+        # Note: Not all of them work well with Travis
+        - ANDROID_TARGET=android-22
         # Use a modern C++ compiler
         - CXX=g++-6
         
+android:
+  components:
+    - tools # to get the new `repository-11.xml`
+    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
+    - platform-tools
+    - build-tools-28.0.3
+    - $ANDROID_TARGET # Our minimum Android version
+    - sys-img-armeabi-v7a-$ANDROID_TARGET
+    - extra-android-m2repository
+    - extra-google-m2repository
+    
 compiler:
     - g++
 
@@ -15,9 +38,21 @@ addons:
       - llvm-toolchain-precise-3.8
     packages:
       - g++-6
-
+      
+before_script:
+    # Launch Android emulator to run the instrumented tests
+    - android list targets
+    - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi armeabi-v7a # Create AVD for given api
+    - emulator -avd test -no-audio -no-window & # Start emulator
+    - android-wait-for-emulator
+    - adb devices # Display list of devices
+    - adb shell input keyevent 82 &
+    # Set `gradlew` as executable
+    - chmod +x $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/gradlew
 
 before_install:
+    # Install Android 9 SDK and accept its user agreement
+    - echo yes | sdkmanager "platforms;android-28"
     # Install Travis CI configuration for Arduino sketches
     - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
@@ -26,6 +61,13 @@ install:
     - arduino --install-library "Smartcar shield"
 
 script:
+     # Build the Android app
+    - cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar
+    - ./gradlew build --stacktrace
+    # Run the Android app's unit tests
+    - ./gradlew test --info
+    # Run the Android app's instrumented tests
+    - ./gradlew connectedAndroidTest
     # Run the Arduino sketch's unit tests
     - cd $TRAVIS_BUILD_DIR/Arduino_code/
     - build_platform mega2560
