@@ -51,7 +51,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="37dp"
-        android:onClick="CruiseControl"
+
         android:text="Cruise Control"
         android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
