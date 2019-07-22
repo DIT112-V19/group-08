@@ -55,6 +55,7 @@ before_install:
     - echo yes | sdkmanager "platforms;android-28"
     # Install Travis CI configuration for Arduino sketches
     - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+    - openssl aes-256-cbc -K $enc_keystore_key -iv $enc_keystore_pass -in key.jks.enc -out key.jks -d
 
 install:
     # Install Smartcar shield library (used by our sketch)
