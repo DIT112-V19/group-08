@@ -37,12 +37,8 @@ before_script:
 - adb shell input keyevent 82 &
 - chmod +x $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/gradlew
 before_install:
-- openssl aes-256-cbc -K $encrypted_2de12dd4fd04_key -iv $encrypted_2de12dd4fd04_iv
-  -in key.jks.enc -out key.jks -d
 - echo yes | sdkmanager "platforms;android-28"
 - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
-- openssl aes-256-cbc -K $enc_keystore_key -iv $enc_keystore_pass -in key.jks.enc
-  -out key.jks -d
 install:
 - arduino --install-library "Smartcar shield"
 script:
