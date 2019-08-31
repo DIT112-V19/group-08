@@ -46,6 +46,6 @@ script:
 - cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar
 - "./gradlew assembleDebug"
 - cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/app/build/outputs/apk/debug/
-- mv app-debug.apk $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/app-debug_$(date +%d-%m-%Y).apk
+- cp app-debug.apk $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/
 - cd $TRAVIS_BUILD_DIR/Arduino_code/
 - build_platform mega2560
