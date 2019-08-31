@@ -1,0 +1,62 @@
+language: android
+jdk: oraclejdk8
+cache:
+  directories:
+  - "~/arduino_ide"
+  - "~/.arduino15/packages/"
+  - $HOME/.m2
+env:
+  global:
+  - ADB_INSTALL_TIMEOUT=10
+  - ANDROID_TARGET=android-22
+  - CXX=g++-6
+android:
+  components:
+  - tools
+  - tools
+  - platform-tools
+  - build-tools-28.0.3
+  - "$ANDROID_TARGET"
+  - sys-img-armeabi-v7a-$ANDROID_TARGET
+  - extra-android-m2repository
+  - extra-google-m2repository
+compiler:
+- g++
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.8
+    packages:
+    - g++-6
+before_script:
+- android list targets
+- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi armeabi-v7a
+- emulator -avd test -no-audio -no-window &
+- android-wait-for-emulator
+- adb devices
+- adb shell input keyevent 82 &
+- chmod +x $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/gradlew
+before_install:
+- echo yes | sdkmanager "platforms;android-28"
+- source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+install:
+- arduino --install-library "Smartcar shield"
+script:
+- cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar
+- "./gradlew assembleDebug"
+- cd $TRAVIS_BUILD_DIR/Arduino_code/
+- build_platform mega2560
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "the-r-win"
+  - git config --local user.email "gusesfar@student.gu.se"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+  
+deploy:
+  provider: releases
+  api_key: $gitoauthtoken
+  file: "$TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/app/build/outputs/apk/debug/app-debug.apk"
+  skip_cleanup: true
