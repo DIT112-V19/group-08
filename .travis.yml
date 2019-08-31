@@ -45,7 +45,6 @@ install:
 script:
 - cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar
 - "./gradlew assembleDebug"
-- cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/app/build/outputs/apk/debug/
 - cd $TRAVIS_BUILD_DIR/Arduino_code/
 - build_platform mega2560
 
