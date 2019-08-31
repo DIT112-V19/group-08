@@ -4,6 +4,7 @@ cache:
   directories:
   - "~/arduino_ide"
   - "~/.arduino15/packages/"
+  - $HOME/.m2
 env:
   global:
   - ADB_INSTALL_TIMEOUT=10
