@@ -61,5 +61,3 @@ deploy:
   api_key: $gitoauthtoken
   file: "$TRAVIS_BUILD_DIR/Android_Application_for_SmartCar/app/build/outputs/apk/debug/app-debug.apk"
   skip_cleanup: true
-  on:
-    branch: The-R-Win-patch-1
