@@ -46,5 +46,6 @@ script:
 - "./gradlew build --stacktrace"
 - "./gradlew test --info"
 - "./gradlew connectedAndroidTest"
+- "./gradlew assembleDebug"
 - cd $TRAVIS_BUILD_DIR/Arduino_code/
 - build_platform mega2560
