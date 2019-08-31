@@ -43,9 +43,6 @@ install:
 - arduino --install-library "Smartcar shield"
 script:
 - cd $TRAVIS_BUILD_DIR/Android_Application_for_SmartCar
-- "./gradlew build --stacktrace"
-- "./gradlew test --info"
-- "./gradlew connectedAndroidTest"
-- "./gradlew assembleDebug"
+- "./gradlew assembleDebug --info --debug"
 - cd $TRAVIS_BUILD_DIR/Arduino_code/
 - build_platform mega2560
